@@ -1,0 +1,422 @@
+body{
+    overflow-x: hidden;
+    background-image: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #333837, #0a0a0a);
+}
+header{
+    min-height: 30vh;
+    }
+main{
+    min-height: 65vh;
+}
+footer{
+  background-color: #0054a4;
+}
+
+#topbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  
+    background-color: #0054a4;
+    color: white;
+    font-size: 1rem;
+  }
+  #topbar a {
+    color: white;
+    text-decoration: none;
+  }
+  #hero {
+    background-image: url("../images/632ad4c6670a0d7eb6a0eb68_open-banking.jpg");
+  
+    background-size: cover;
+    background-position: center;
+    min-height: 70vh;
+    position: relative;
+  }
+  #herocol {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    backdrop-filter: blur(5px); 
+  }
+  .card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px); 
+}
+/* Casrousel */
+.box {
+  margin-top: 8rem;
+  margin-left: 38rem;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 100px;
+  height: 100px;
+  transform-style: preserve-3d;
+  animation: animate 20s linear infinite;
+}
+@keyframes animate {
+  0% {
+      transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+      transform: perspective(1000px) rotateY(360deg);
+  }
+}
+.box span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--i)* 45deg)) translateZ(400px);
+  -webkit-box-reflect: below 0px linear-gradient(transparent,transparent, #0004);
+}
+.box span img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Footer */
+.whatsapp{
+  position: relative;  
+}
+.whatsapp:before,
+.whatsapp :after{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -2px;
+  width: 71px;
+  height: 71px;
+  border-radius: 50%;
+  background-color: rgb(19, 152, 19);
+  opacity: 0;
+  animation: ondas 2s infinite; 
+}
+.whatsapp:before{
+  animation-delay: 1s;
+}
+.whatsapp:after{
+  animation-delay: 2s;
+}
+.whatsapp img{
+  position: relative; 
+  border-radius: 50%;
+  z-index: 1; 
+}
+
+.instagram{
+  position: relative;
+}
+.instagram:before,
+.instagram :after{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -2px;
+  width: 71px;
+  height: 71px;
+  border-radius: 15px;
+  background-color: rgb(173, 16, 95);
+  opacity: 0;
+  animation: ondas 2s infinite; 
+}
+.instagram:before{
+  animation-delay: 1s;
+}
+.instagram:after{
+  animation-delay: 2s;
+}
+.instagram img{
+  position: relative;
+  border-radius: 30%;
+  z-index: 1;
+}
+
+.facebook{
+  position: relative; 
+}
+.facebook:before,
+.facebook :after{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -2px;
+  width: 71px;
+  height: 71px;
+  border-radius: 15px;
+  background-color: rgba(48, 38, 187, 0.779);
+  opacity: 0;
+  animation: ondas 2s infinite; 
+}
+.facebook:before{
+  animation-delay: 1s;
+}
+.facebook:after{
+  animation-delay: 2s;
+}
+.facebook img{
+  position: relative;
+  border-radius: 30%;
+  z-index: 1;
+}
+@keyframes ondas {
+  0%{
+    transform: scale(0.4);
+  }
+  15%{
+    opacity: 1;
+
+  }
+  100%{
+    opacity: 0;
+    transform: scale(1);
+  }    
+}
+
+[v-cloak]{
+  display: none !important
+}
+
+.cascading-right {
+  margin-right: -50px;
+}
+
+@media (max-width: 991.98px) {
+  .cascading-right {
+    margin-right: 0;
+  }
+}
+
+/* Cards */
+.card2 {
+  width: 500px;
+  height: 300px;
+  color: #fff;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.card2-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.front, .back {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #9c9a08, #070607);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 1;
+  backface-visibility: hidden;
+}
+
+.row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.map-img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.card2-no {
+  font-size: 35px;
+  margin-top: 60px;
+}
+
+.card2-holder {
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+.name {
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.bar {
+  background: #222;
+  margin-left: -30px;
+  margin-right: -30px;
+  height: 60px;
+  margin-top: 10px;
+}
+
+.card2-cvv {
+  margin-top: 20px;
+}
+
+.card2-cvv div {
+  flex: 1;
+}
+
+.card2-cvv img {
+  width: 100%;
+  display: block;
+  line-height: 0;
+}
+
+.card2-cvv p {
+  background: #fff;
+  color: #000;
+  font-size: 22px;
+  padding: 10px 20px;
+}
+
+.card2-text {
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.signature {
+  margin-top: 30px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.card2:hover .card2-inner {
+  transform: rotateY(-180deg);
+}
+
+
+
+/* Estilos CSS para el formulario */
+
+
+.container1 {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
+
+
+/* Estilos para el formulario de transferencia */
+.container-transfer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.container-form-transfer {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.label-transfer {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.container-img-transfer {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.btn-create-transfer {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 1px 1px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-create-transfer:hover {
+  background-color: #0056b3;
+}
+
+/* Clase para texto rojo */
+.text-red {
+  color: red;
+}
+
+/* Clase para texto verde */
+.text-green {
+  color: green;
+}

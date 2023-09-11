@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | HomeBanking</title>
+    <link rel="shortcut icon" href="../images/2acd7a1377fa463e974c02cf00d52e75.png" type="image/x-icon">
+    <link rel="stylesheet" href="../Style/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div id="topbar" class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="tel:+18005551234"> <span class="me-5"><i class="bi bi-telephone-fill"></i> +1 (800)
+                                555-1234</span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <span> 1234 Shingle Street, Roofville, RC 56789</span>
+                    </div>
+                    <div class="col-md-4 text-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar  navbar-expand-lg bg-body-tertiary py-3">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../images/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                    HomeBanking Brothers
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link " href="/web/index.html">About us</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+            <section id="carousel" class="carousel slide " data-bs-ride="carousel">
+        <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1">Home</h2>
+        <div class="carousel-inner">
+            <div class="carousel-item ">
+                <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+            </div>
+            <div class="carousel-item active" data-bs-interval="10000">
+                <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
+            </div>
+            <div class="carousel-item">
+                <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+    </section>
+    </header>
+    <main id="app">
+    <div class="text-center text-lg-start">
+        <div class="container py-4">
+          <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="card cascading-right" style="
+                  background: hsla(0, 0%, 100%, 0.55);
+                  backdrop-filter: blur(30px);
+                  ">
+                <div class="card-body p-5 shadow-5 text-center">
+                  <h2 class="fw-bold mb-5">Log In</h2>
+                  <form @submit.prevent="login">
+  
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <input type="email" id="email" class="form-control" v-model="email" />
+                      <label class="form-label" aria-hidden="true" for="email">Email address</label>
+                    </div>
+      
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input type="password" id="Password" v-model="password" class="form-control" />
+                      <label class="form-label" aria-hidden="true" for="Password">Password</label>
+                    </div>  
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                      Log In
+                    </button>
+    
+                  </form>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
+                alt="" />
+            </div>
+          </div>
+        </div>
+    
+    </div>
+
+    </main>
+    <footer>
+        <nav class="bg-footer d-flex justify-content-between border rounded align-items-center">
+            <ul class="nav">
+                <li class="nav-item whatsapp">
+                    <a class="nav-link" href="tel:34678567876">
+                        <img src="../images/whatsapp.png" alt="whatsapp" width="35">        
+                    </a>
+                </li>
+                <li class="nav-item facebook">
+                    <a class="nav-link" href="amazingevents@hotmail.com">
+                        <img src="../images/facebook.png" alt="facebook" width="35">
+                    </a>
+                </li>
+                <li class="nav-item instagram">
+                    <a class="nav-link" href="http://bit.ly/2U4iZNCzxcz">
+                        <img src="../images/instagram.png" alt="instagram" width="35">
+                    </a>
+                </li>
+            </ul>
+            <section class="d-flex align-items-center mx-4">
+                <h4 class="text-light">COHORT 49</h4>
+                <a class="navbar-brand" href="https://mindhublab.com/">
+                    <img src="../images/Insignia_JAVA-19.png" alt="Mindhub" width="60">
+                </a>
+            </section>
+        </nav>
+    </footer>  
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../scripts/index.js"></script> 
+</html>
