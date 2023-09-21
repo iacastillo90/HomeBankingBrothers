@@ -5,6 +5,7 @@ import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,23 +26,35 @@ import java.util.stream.Collectors;
 public class CardController {
 
     @Autowired
+    private CardRepository cardRepository;
+
+
+    @Autowired
     private CardService cardService;
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/cards")
+    @GetMapping("/cards")
     public List<CardDTO> getCardsDTO() {
         return cardService.getCardsDTO();
     }
 
-    @RequestMapping("/cards/{id}")
+    @GetMapping("/cards/{id}")
     public CardDTO getCardDTO(@PathVariable Long id) {
         return cardService.getCardDTO(id);
     }
 
+    @GetMapping("clients/current/cards/true")
+    public List<CardDTO> getCardsTrue(){
+        List<CardDTO> CardDTOList= cardRepository.findAll().stream().map(CardDTO::new).collect(Collectors.toList());
+        List<CardDTO> CardDTOListTrue=CardDTOList.stream().filter(CardDTO::getIsActive).collect(Collectors.toList());
+        return  CardDTOListTrue;
+
+    }
 
 
-    @RequestMapping(path = "clients/current/cards", method = RequestMethod.POST)
+
+    @PostMapping("clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication,
                                              @RequestParam CardType cardType,
                                              @RequestParam CardColor cardColor) {
@@ -78,7 +92,7 @@ public class CardController {
         LocalDate thruDate = fromDate.plusYears(5);
         String cardHolder = clientCurrent.getFirstName() + " " + clientCurrent.getLastName();
 
-        Card card = new Card(cardHolder, cardType, cardColor, cardNumber, cvv, thruDate, fromDate, clientCurrent);
+        Card card = new Card(cardHolder, cardType, cardColor, cardNumber, cvv, thruDate, fromDate, clientCurrent, true);
         clientCurrent.addCard(card);
         cardService.saveCard(card);
 
@@ -113,5 +127,27 @@ public class CardController {
         }
         return cardNumber.substring(1);
     }
+
+
+    @PatchMapping("/clients/current/cards/delete/{id}")
+    public ResponseEntity<Object> deleteCard(Authentication authentication,@PathVariable Long id){
+        Client client = clientService.findByEmail(authentication.getName());
+        Card card = cardService.findById(id);
+        Boolean exists= client.getCards().contains(card);
+
+        if (card == null ){
+            return new ResponseEntity<>("Card not found", HttpStatus.NOT_FOUND);
+        }if (!exists){
+            return new ResponseEntity<>("Card not exits", HttpStatus.NOT_FOUND);
+        }if (card.getIsActive() == false){
+            return new ResponseEntity<>("Card already deleted ", HttpStatus.CREATED);
+        }
+        card.setIsActive(false);
+        cardService.saveCard(card);
+
+        return new ResponseEntity<>("Set Good: false", HttpStatus.CREATED);
+    }
+
 }
+
 

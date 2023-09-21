@@ -6,7 +6,7 @@
         width: 100%;
     }
     
-    #app {
+    #app4 {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: column;
@@ -23,6 +23,11 @@
         background-image: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #333837, #0a0a0a);
         flex-direction: column;
         overflow: scroll;
+    }
+    
+    .title {
+        margin-bottom: 30px;
+        color: #eceef5;
     }
     
     .card {
@@ -205,8 +210,7 @@
         -moz-transform: rotateY(0deg);
     }
     
-
-    
+       
     .navegacion {
         display: flex;
         flex-wrap: nowrap;
@@ -216,7 +220,11 @@
         margin: 6px;
     }
     
- 
+    nav {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
     
     .form-check {
         display: flex;
@@ -233,6 +241,7 @@
         text-align: center;
     }
     
+
     
     figure {
         color: aliceblue;
@@ -257,14 +266,7 @@
         justify-content: space-around;
     }
     
-    .card.debit.silver {
-        width: 35 rem;
-        height: 20rem;
-        margin: 0 auto;
-        border-radius: 0 auto;
-        background: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #7a7c7c, #e0dcdc);
-    }
-    .card.credit.silver{
+    .SILVER {
         width: 35 rem;
         height: 20rem;
         margin: 0 auto;
@@ -272,14 +274,7 @@
         background: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #7a7c7c, #e0dcdc);
     }
     
-    .card.debit.gold {
-        width: 35 rem;
-        height: 20rem;
-        margin: 0 auto;
-        border-radius: 0 auto;
-        background: linear-gradient(to right top, #d6da12, #bea515, #f1ed07, #f5e508, #ffee51);
-    }
-    .card.credit.gold{
+    .GOLD {
         width: 35 rem;
         height: 20rem;
         margin: 0 auto;
@@ -287,17 +282,31 @@
         background: linear-gradient(to right top, #d6da12, #bea515, #f1ed07, #f5e508, #ffee51);
     }
     
-    .card.debit.titanium {
+    .TITANIUM {
         width: 35 rem;
         height: 20rem;
         margin: 0 auto;
         border-radius: 0 auto;
         background: linear-gradient(to right top, #f3f3f0, #3d3d3c, #79786c25, #626043, #696967);
     }
-    .card.credit.titanium{
-        width: 35 rem;
-        height: 20rem;
-        margin: 0 auto;
-        border-radius: 0 auto;
-        background: linear-gradient(to right top, #f3f3f0, #3d3d3c, #79786c25, #626043, #696967);
+
+    footer{
+        background-color: #1e293b;
+        min-height: 5vh;
+      }
+      nav,
+    .offcanvas {
+      background-color: #1e293b;
     }
+    .navbar-toggler {
+      border: none;
+    }
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    .navStart{
+        background-color: #0054a4;
+    }
+
+    

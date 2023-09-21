@@ -7,12 +7,14 @@ public class LoanApplicationDTO {
     private double amount;
     private List<Integer> payments;
     private String numberAccountDestination;
+    private double interest;
 
-    public LoanApplicationDTO(String typeName, double amount, List<Integer> payments, String numberAccountDestination) {
+    public LoanApplicationDTO(String typeName, double amount, List<Integer> payments, String numberAccountDestination, double interest) {
         this.typeName = typeName;
         this.amount = amount;
         this.payments = payments;
         this.numberAccountDestination = numberAccountDestination;
+        this.interest = 0;
     }
 
     public String getTypeName() {
@@ -43,5 +45,13 @@ public class LoanApplicationDTO {
     }
     public void setNumberAccountDestination(String numberAccountDestination) {
         this.numberAccountDestination = numberAccountDestination;
+    }
+
+    public double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest = interest;
     }
 }

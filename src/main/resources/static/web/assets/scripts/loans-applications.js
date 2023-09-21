@@ -19,7 +19,7 @@ const app = createApp({
   methods: {
     loadData() {
       axios
-        .get("http://localhost:8080/api/clients/current/accounts")
+        .get("http://localhost:8080/api/clients/current/accounts/true")
         .then((response) => {
           this.accounts = response.data;
           console.log("Cuentas recuperadas con éxito:", this.accounts);
@@ -59,7 +59,7 @@ const app = createApp({
     },
     sendLoan() {
         if (!this.selectedLoan || !this.numberOrigin || !this.amount || !this.payments) {
-          window.alert('Por favor, complete todos los campos obligatorios.');
+          window.alert('Please complete all required fields.');
           return;
         }
       
@@ -67,7 +67,7 @@ const app = createApp({
         const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan);
       
         if (!selectedLoan) {
-          window.alert('El préstamo seleccionado no se encuentra. Por favor, intente nuevamente.');
+          window.alert('The selected loan is not found. Please try again.');
           return;
         }
       
@@ -78,7 +78,7 @@ const app = createApp({
           payments: [this.payments]
         };
       
-        const confirmation = window.confirm('¿Desea agregar un nuevo préstamo?');
+        const confirmation = window.confirm('Do you want to add a new loan?');
       
         if (confirmation) {
           axios

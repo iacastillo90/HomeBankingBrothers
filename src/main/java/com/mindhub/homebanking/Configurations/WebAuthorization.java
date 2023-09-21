@@ -24,18 +24,22 @@ public class WebAuthorization{
                 .antMatchers("/rest/**").hasAuthority("ADMIN")
                 .antMatchers("/manager.html").hasAuthority("ADMIN")
                 .antMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/admin/loan").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/payments","/api/payments ").hasAuthority("CLIENT")
 
 
 
-                .antMatchers("/accounts.html","/account.html","/loans.html","/cards.html","/api/clients/current/accounts","/api/loans").hasAuthority("CLIENT")
+
+                .antMatchers("/accounts.html","/account.html","/loans.html","/cards.html","/api/clients/current/accounts","/api/loans", "/api/cards/expiration","/api/transactions/findDate").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/current/accounts/delete/{id}").hasAuthority("CLIENT")
 
 
-                .antMatchers("/web/**","/script/**","/images/**","/assets/**").permitAll()
+                .antMatchers("/web/**","/script/**","/assets/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/clients/current","/api/clients/current/cards","/api/clients/current/accounts","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/logout").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
-                .antMatchers("/Index.html").permitAll();
+                .antMatchers("/Index.html","/script/index.js","/images/**").permitAll();
 
 
         http.formLogin()

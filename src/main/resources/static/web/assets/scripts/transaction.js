@@ -26,17 +26,17 @@ createApp({
         },
         addTransaction() {
             if (confirm('¿Estás seguro de que deseas realizar la transacción?')) {
-                axios.post("/api/transactions", `amount=${this.amount}&description=${this.description}&numberDestiny=${this.originAccount}&numberOrigin=${this.destinationAccount}`)
+                axios.post("/api/transactions", `amount=${this.amount}&description=${this.description}&numberOrigin=${this.originAccount}&numberDestiny=${this.destinationAccount}`)
                     .then(response => {
-                        alert('¡Transacción realizada!');
+                        alert('Transaction completed!');
                         location.href = './accounts.html';
                     })
                     .catch((error) => {
                         console.error('Error en la respuesta:', error.response.data);
-                        alert('Error al realizar la transacción: ' + error.response.data.message); 
+                        alert('Error when completing the transaction: ' + error.response.data.message); 
                     });
             } else {
-                alert('La transacción no se realizó.');
+                alert('The transaction did not go through.');
             }
         },
         logout() {

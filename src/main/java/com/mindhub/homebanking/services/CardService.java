@@ -12,5 +12,6 @@ public interface CardService {
     CardDTO getCardDTO (long id);
     Card findById (long id);
     void saveCard(Card card);
+    Card findByNumber(String number);
 
 }

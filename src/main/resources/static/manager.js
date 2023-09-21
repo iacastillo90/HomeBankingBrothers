@@ -1,39 +1,43 @@
 const app = Vue.createApp({
   data() {
     return {
-      clienteName: '',
-      accountsNumber1: '',
-      vin001Balance: '',
-      vin001CreationData: '',
-      accountsNumber2: '',
-      vin002Balance: '',
-      vin002CreationData: ''
+      newLoanType: {
+        name: '',
+        maxAccount: 0,
+        payments: [],
+        interest: 0.0,
+      },
+      successMessage: '', // Agrega una propiedad para almacenar el mensaje de éxito
+      errorMessage: '', // Agrega una propiedad para almacenar el mensaje de error
     };
   },
-  created() {
-    // Llama a la función loadData para obtener los datos del cliente y las cuentas
-    this.loadData();
-  },
+
   methods: {
-loadData() {
-  axios.get('/api/clients')
-    .then(response => {
-      const data = response.data; // Assuming the response has a structure like { clienteName, accounts }
-      this.clienteName = data.clienteName;
-      if (data.accounts && data.accounts.length >= 2) {
-        this.accountsNumber1 = data.accounts[0].number;
-        this.vin001Balance = data.accounts[0].balance;
-        this.vin001CreationData = data.accounts[0].creationDate;
-        this.accountsNumber2 = data.accounts[1].number;
-        this.vin002Balance = data.accounts[1].balance;
-        this.vin002CreationData = data.accounts[1].creationDate;
-      }
-    })
+    createLoanType() {
+      axios
+        .post('/api/admin/loan', this.newLoanType)
+        .then(response => {
+          // Handle success, e.g., show a success message to the user
+          console.log('Loan type created successfully:', response.data);
+          this.successMessage = 'Loan type created successfully'; // Asigna el mensaje de éxito
+          this.errorMessage = ''; // Limpia el mensaje de error
+
+          // Clear the form fields
+          this.newLoanType = {
+            name: '',
+            maxAccount: 0,
+            payments: [],
+            interest: 0.0,
+          };
+        })
         .catch(error => {
-          console.error('Error al obtener los datos del cliente y las cuentas:', error);
+          // Handle error, e.g., show an error message to the user
+          console.error('Error creating loan type:', error);
+          this.errorMessage = 'Error creating loan type'; // Asigna el mensaje de error
+          this.successMessage = ''; // Limpia el mensaje de éxito
         });
-    }
-  }
+    },
+  },
 });
 
 app.mount('#app');

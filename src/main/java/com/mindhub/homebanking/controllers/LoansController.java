@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.controllers;
 
-
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
@@ -21,8 +20,6 @@ import java.util.List;
 public class LoansController {
 
     @Autowired
-    private ClientLoanRepository clientLoanRepository;
-    @Autowired
     private ClientLoanService clientLoanService;
     @Autowired
     private LoanService loanService;
@@ -42,7 +39,6 @@ public class LoansController {
     @PostMapping("/loans")
     public ResponseEntity<String> newLoans(@RequestBody LoanApplicationDTO loanApplicationDTO,
                                            Authentication authentication) {
-
         // Obtener el cliente autenticado
         Client client = clientService.findByEmail(authentication.getName());
         String mensaje = "";
@@ -73,12 +69,25 @@ public class LoansController {
             return new ResponseEntity<>( mensaje, HttpStatus.BAD_REQUEST);
         }
 
+        // Establecer los porcentajes de interés basados en el tipo de préstamo
+        switch (loanApplicationDTO.getTypeName()) {
+            case "MORTGAGE":
+                loanApplicationDTO.setInterest(0.20); // 20% de interés para hipotecas
+                break;
+            case "PERSONAL":
+                loanApplicationDTO.setInterest(0.15); // 15% de interés para préstamos personales
+                break;
+            case "AUTOMOTIVE":
+                loanApplicationDTO.setInterest(0.25); // 25% de interés para préstamos automotrices
+                break;
+            default:
+                // Manejar el caso en el que el tipo de préstamo no se reconoce
+                mensaje = "Invalid loan type.";
+                return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
+        }
+
         // Verificar que el préstamo existe
         Loan loan = loanService.findByName(LoanType.valueOf(loanApplicationDTO.getTypeName()));
-        if (loanApplicationDTO == null || loanApplicationDTO.getTypeName() == null) {
-            mensaje = "Loan ID is missing.";
-            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
-        }
         if (loan == null) {
             mensaje = "Loan not found.";
             return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
@@ -115,13 +124,13 @@ public class LoansController {
                 .filter(clientLoan -> clientLoan.getLoan().equals(loan))
                 .count();
 
-        if (existingLoans >= 3) {
+        if (existingLoans >= 1) {
             mensaje = "You have reached the maximum number of loans of this type.";
             return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
-        // Calcular el monto del préstamo con el 20% de interés
-        Double loanInterest = loanApplicationDTO.getAmount() * 1.20;
+        // Calcular el interés del préstamo
+        Double loanInterest = loanApplicationDTO.getAmount() * (1 + loanApplicationDTO.getInterest());
 
         // Crear solicitud de préstamo
         ClientLoan clientLoan = new ClientLoan(loanInterest, loanApplicationDTO.getPayments().get(0), client, loan);
@@ -145,4 +154,22 @@ public class LoansController {
         mensaje= "Loan request approved.";
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
-}
+
+        @PostMapping("/admin/loan")
+        public ResponseEntity<?> createLoan(Authentication authentication, @RequestBody LoanDTO loanDTO) {
+            try {
+                Client client = clientService.findByEmail(authentication.getName());
+                if (!client.getEmail().equals("admin@mindhub.com")) {
+                    return new ResponseEntity<>("No está autorizado", HttpStatus.FORBIDDEN);
+                }
+                if (loanDTO.getInterest() == 0 || loanDTO.getMaxAccount() == 0 || loanDTO.getName() == null || loanDTO.getPayments().isEmpty()) {
+                    return new ResponseEntity<>("Espacios vacíos", HttpStatus.FORBIDDEN);
+                }
+
+                loanService.saveLoan(new Loan(loanDTO.getName(), loanDTO.getMaxAccount(), loanDTO.getPayments(), loanDTO.getInterest()));
+                return new ResponseEntity<>("Nuevo préstamo adherido", HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>("Error en la solicitud", HttpStatus.BAD_REQUEST);
+            }
+        }
+};

@@ -17,7 +17,9 @@ public class CardDTO {
     private int cvv;
     private LocalDate thruDate;
     private LocalDate fromDate;
-    private List<CardDTO> cards;
+    private Boolean isActive;
+
+
 
     public CardDTO(Card card) {
         id = card.getId();
@@ -28,6 +30,7 @@ public class CardDTO {
         cvv = card.getCvv();
         thruDate = card.getThruDate();
         fromDate = card.getFromDate();
+        isActive = card.getIsActive();
     }
 
     public Long getId() {
@@ -36,19 +39,15 @@ public class CardDTO {
     public String getCardHolder() {
         return cardHolder;
     }
-
     public CardType getType() {
         return type;
     }
-
     public CardColor getColor() {
         return color;
     }
-
     public String getNumber() {
         return number;
     }
-
     public int getCvv() {
         return cvv;
     }
@@ -58,9 +57,11 @@ public class CardDTO {
     public LocalDate getFromDate() {
         return fromDate;
     }
-
-    public List<CardDTO> getCards() {
-        return cards;
+    public Boolean getIsActive() {
+        return isActive;
     }
+
+
+
 }
 

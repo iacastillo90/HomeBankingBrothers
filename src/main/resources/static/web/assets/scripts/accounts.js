@@ -5,30 +5,56 @@ const app = Vue.createApp({
       accounts: [],
       clientLoans: '',
       accType: null,
-      darkMode: false 
+      accountsTrue: [],
     };
   },
   created() {
-      const urlParams = new URLSearchParams(window.location.search);
-      var myParam = urlParams.get("id");
-      this.loadData()
+    const urlParams = new URLSearchParams(window.location.search);
+    var myParam = urlParams.get("id");
+    this.loadData()
   },
   methods: {
+    // Agrega el método formatAmount aquí
+    formatAmount(amount) {
+      // Aquí puedes formatear el monto si es necesario.
+      return amount.toFixed(2); // Por ejemplo, formateado a dos decimales.
+    },
     loadData() {
       axios.get('http://localhost:8080/api/clients/current')
         .then(response => {
           const clients = response.data;
-          console.log(clients)
-          this.clienteName = clients.firstName
-          this.clientLoans= clients.loans
-          this.accounts = response.data.accounts.sort((a, b) => a.id - b.id)
+          console.log(clients);
+          this.clienteName = clients.firstName;
+          this.clientLoans = clients.loans.map(loan => {
+            // Calcula el interés según el tipo de préstamo
+            let interest;
+            switch (loan.name) {
+              case 'MORTGAGE':
+                interest = loan.amount * 0.20; // 20% de interés para hipotecas
+                break;
+              case 'PERSONAL':
+                interest = loan.amount * 0.15; // 15% de interés para préstamos personales
+                break;
+              case 'AUTOMOTIVE':
+                interest = loan.amount * 0.20; // 25% de interés para préstamos automotrices
+                break;
+              default:
+                interest = 0; // Valor predeterminado si el tipo de préstamo no se reconoce
+                break;
+            }
+
+            return {
+              ...loan,
+              interest: interest,
+            };
+          });
+          this.accounts = response.data.accounts.sort((a, b) => a.id - b.id);
+          this.accountsTrue = this.accounts.filter(accounts => accounts.isActive == true);
+          console.log(this.accountsTrue);
         })
         .catch(error => {
           console.error('Error al obtener los datos de los clientes:', error);
         });
-    },
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode;
     },
     createAccount() {
       axios
@@ -39,7 +65,7 @@ const app = Vue.createApp({
         )
         .then(response => {
           console.log(response.data);  // Log the response for debugging
-          window.alert("La cuenta se ha creado con éxito");
+          window.alert("The account has been created successfully");
           location.reload();
         })
         .catch(error => {
@@ -56,7 +82,13 @@ const app = Vue.createApp({
         .catch(error => {
           console.error('Error al cerrar sesión', error);
         });
-    }
+    },
+    deleteAccount(id) {
+      axios.patch(`/api/clients/current/accounts/delete/` + id)
+          .then(response => {
+              return window.location.reload()
+          })
+    },
   }
 });
 

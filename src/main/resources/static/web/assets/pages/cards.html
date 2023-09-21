@@ -6,77 +6,114 @@
     <title>Cards | HomeBanking</title>
     <link rel="shortcut icon" href="../images/2acd7a1377fa463e974c02cf00d52e75.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Style/cards.css">
-    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="stylesheet" href="../Style/cards1.css">
+    <link rel="stylesheet" href="../Style/animation.css">
+    <link rel="stylesheet" href="../Style/normalize.css">
 </head>
-<body>
+  <body>
     <header>
-        <div id="topbar" class="">
+        <div id="topbar" class="navStart text-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
-                        <a href="tel:+18005551234"> <span class="me-5"><i class="bi bi-telephone-fill"></i> +1 (800)
+                    <div class=" col-md-4">
+                        <a href="tel:+18005551234"> <span class="me-5 text-light"><i class="bi bi-telephone-fill"></i> +1 (800)
                                 555-1234</span>
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <span> 1234 Shingle Street, Roofville, RC 56789</span>
+                        <span> 123 Banking Street, Cityville, BC 56789</span>
                     </div>
-                    <div class="col-md-4 text-end">               
-                    </div>
+                    <div class="col-md-4 text-end">              
+                    </div> 
                 </div>
             </div>
         </div>
-        <nav class="navbar  navbar-expand-lg bg-body-tertiary py-3">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="../images/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                    HomeBanking Brothers
+            <!-- MENU START  -->
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <!-- NAV CONTAINER START -->
+            <div class="container-fluid">
+                
+                <a href="#" class="navbar-brand  fw-semibold ms-5">
+                    <img src="../images/logo.png" alt="Logo" width="30" height="30" >
+                    Home Banking Brothers
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link" href="#">Cards</a>
-                      <a class="nav-link" href="./accounts.html">Accounts</a>
-                      <a class="nav-link" href="./transaction.html">Transaction</a>
-                      <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
-                    </div>
+            <!-- NAV BUTTON  -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#menuLateral"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- OFFCANVAS MAIN CONTAINER START -->
+            <section
+                class="offcanvas offcanvas-start"
+                id="menuLateral"
+                tabindex="-1"
+            >
+                <div class="offcanvas-header" data-bs-theme="dark">
+                <h5 class="offcanvas-title text-info">Home Banking Brothers</h5>
+                <button
+                    class="btn-close"
+                    type="button"
+                    aria-label="Close"
+                    data-bs-dismiss="offcanvas"
+                ></button>
                 </div>
+                <!-- OFF CANVAS MENU LINKS  START-->
+                <div
+                class="offcanvas-body d-flex flex-column justify-content-between px-0"
+                >
+                <ul class="navbar-nav fs-5 justify-content-evenly">
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="#">Cards</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="./accounts.html">Accounts</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="./transaction.html">Transaction</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
+                    </li>
+                </ul>
+                </div>
+            </section>
+            <!-- OFFCANVAS MAIN CONTAINER END  -->
             </div>
         </nav>
-            <section id="carousel" class="carousel slide " data-bs-ride="carousel">
-        <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1">Home</h2>
-        <div class="carousel-inner">
-            <div class="carousel-item ">
-                <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+        <section id="carousel" class="carousel slide " data-bs-ride="carousel">
+            <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1"></h2>
+            <div class="carousel-inner">
+                <div class="carousel-item ">
+                    <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+                </div>
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
+                </div>
             </div>
-            <div class="carousel-item active" data-bs-interval="10000">
-                <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
-            </div>
-            <div class="carousel-item">
-                <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-    </section>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </section>
     </header>
     <main id="app">
         <div class="container mt-5">
             <h1 class="text-center">Your Cards</h1>
-            <section v-if="cards.length < 6" class="col-md-4">
+            <section v-if="cardsTrue.length < 6" class="col-md-4">
                 <h2>Seleccione las opciones para Solicitar la tarjeta</h2>
                 <form @submit.prevent="newCard()">
                     <div class="mb-3">
@@ -105,47 +142,93 @@
                             <label class="form-check-label" for="Titanium">Titanium</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" :disabled="cards.length >= 6">SOLICITAR TARJETA</button>
+                    <button type="submit" class="btn btn-primary" :disabled="cardsTrue.length >= 6">SOLICITAR TARJETA</button>
 
                 </form>
             </section>
             <div class="row">
-                <div v-for="(card, index) in cards" :key="index" class="col-12 col-md-4">
-                    <div :class="getCardClass(card.type)">
-                        <!-- Estructura para mostrar una tarjeta -->
-                        <h1 class="title">{{ card.type === 'DEBIT' ? 'DEBIT' : 'CREDIT' }} <img src="../images/5255074.png" width="30px" height="30px" alt="flecha"></h1>
-                        <div :class="['card', card.type ? card.type.toLowerCase() : '', card.cardColor ? card.cardColor.toLowerCase() : '']">
-                            <div class="card__front card__part">
-                                <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img">
-                                <p class="card_numer" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">{{ card.number }}</p>
-                                <div class="card__space-75">
-                                    <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="w-25" style="width: 1rem;">
-                                    <span class="card__label" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">Card Holder</span>
-                                    <p class="card__info" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">{{ card.cardHolder }}</p>
-                                    
-                                </div>
-                                <div class="card__space-25">
-                                    <span class="card__label" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">Expires</span>
-                                    <p class="card__info" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">{{fromDate[index]}}</p>
-                                    <img class="card__front-logo card__logo" src="../images/visa.png" alt="visa">
-                                </div>
-                            </div>
-                            <div class="card__back card__part">
-                                <div class="card__black-line"></div>
-                                <div class="card__back-content">
-                                    <div class="card__secret">
-                                        <p class="card__secret--last" :style="card.type === 'DEBIT' ? 'color: #d50e0e;' : 'color: blue;'">{{ card.cvv }}</p>
+                <div class="div1">
+
+                    <div v-for="card in cardsTrue" :class="{ 'expiring-card': card.isExpiringSoon }">
+        
+                        <div v-if="card.type== 'DEBIT'">
+                            <h1 class="title">DEBIT<img src="../images/5255074.png" width="30px" height="30px" alt="flecha"></h1>
+                            <div class="card ">
+                                <div class="card__front card__part ">
+                                    <p class="card_numer " style="color:  #d50e0e;">{{card.number}}</p>
+                                    <div class="card__space-75 ">
+                                        <span class="card__label " style="color:  #d50e0e;">Card Holder</span>
+                                        <p class="card__info " style="color:  #d50e0e;">{{card.cardHolder}}</p>
                                     </div>
-                                    <div class="color">
-                                        <p class="card_color">{{ card.cardColor }}</p>
-                                        <img class="card__front-square card__square" src="../images/924920.png">
-                                        <img class="card__front-square card__square" src="../images/masterCard.png" alt="masterCard">
+                                    <div class="card__space-25 ">
+                                        <span class="card__label " style="color:  #d50e0e;">Expires</span>
+                                        <p class="card__info " style="color:  #d50e0e;">{{ formatDate(card.thruDate) }}</p>
+                                        <img class="card__front-logo card__logo " src="../images/visa.png" alt="visa ">
                                     </div>
                                 </div>
+        
+                                <div class="card__back card__part ">
+                                    <div class="card__black-line "></div>
+                                    <div class="card__back-content ">
+                                        <div class="card__secret ">
+                                            <p class="card__secret--last " style="color:  #d50e0e;">{{card.cvv}}</p>
+                                        </div>
+                                        <div class="color ">
+                                            <p class="card_color " style="color:  #d50e0e;">{{card.cardColor}}</p>
+                                            <img class="card__front-square card__square " src="../images/924920.png">
+                                            <img class="card__front-square card__square " src="../images/masterCard.png" alt="masterCard ">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <button type="button" @click="deleteCards(card.id)" v-cloak>eliminar tarjeta</button>
                         </div>
+        
+        
+        
+        
+        
+                        <div v-if="card.type== 'CREDIT'">
+                            <h1 class="title ">CREDIT <img src="../images/5255074.png" width="30px" height="30px" alt="flecha"></h1>
+                            <div class="card ">
+                                <div class="card__front card__part2 ">
+                                    <img class="card__front-square card__square " src="../images/924920.png ">
+                                    <p class="card_numer " style="color: blue; ">{{card.number}}</p>
+                                    <div class="card__space-75 ">
+                                        <span class="card__label " style="color: blue; ">Card Holder</span>
+                                        <p class="card__info " style="color: blue; ">{{card.cardHolder}}</p>
+                                    </div>
+                                    <div class="card__space-25 ">
+                                        <img class="card__front-logo card__logo " src="../images/masterCard.png " alt="masterCard ">
+                                        <span class="card__label " style="color: blue; ">Expires</span>
+                                        <p class="card__info " style="color:  #d50e0e;">{{ formatDate(card.thruDate) }}</p>
+
+                                    </div>
+                                </div>
+        
+                                <div class="card__back card__part2 ">
+                                    <div class="card__black-line "></div>
+                                    <div class="card__back-content ">
+                                        <div class="card__secret ">
+                                            <p class="card__secret--last " style="color: blue; ">{{card.cvv}}</p>
+                                        </div>
+                                        <div class="color ">
+                                            <p class="card_color ">{{card.cardColor}}</p>
+                                            <img class="card__front-square  card__square" src="../images/visa.png" alt="visa ">
+                                            <!--  -->
+                                            <img class="card__front-square card__square " src="../images/924920.png">
+        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" @click="deleteCards(card.id)" v-cloak>eliminar tarjeta</button>
+                        </div>
+                        
                     </div>
+        
                 </div>
+               
             </div>
         </div>
     </main>

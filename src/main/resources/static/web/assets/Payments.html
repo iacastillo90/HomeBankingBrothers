@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago con Tarjeta</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Realizar un Pago</h1>
+        <form @submit.prevent="submitPayment">
+            <label for="number">Número de Tarjeta:</label>
+            <input type="text" v-model="paymentData.number" id="number" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" v-model="paymentData.cvv" id="cvv" required>
+
+            <label for="amount">Monto:</label>
+            <input type="number" v-model="paymentData.amount" id="amount" required>
+
+            <label for="description">Descripción:</label>
+            <input type="text" v-model="paymentData.description" id="description" required>
+
+            <label for="thruDate">Fecha de Vencimiento (MM/yyyy):</label>
+            <input type="text" v-model="paymentData.thruDate" id="thruDate" required>
+
+            <button type="submit">Realizar Pago</button>
+        </form>
+
+        <div v-if="paymentResult">
+            <h2>Resultado:</h2>
+            <p>{{ paymentResult }}</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

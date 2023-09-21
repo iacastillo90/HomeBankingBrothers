@@ -1,6 +1,9 @@
 body{
     overflow-x: hidden;
     background-image: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #333837, #0a0a0a);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
 }
 header{
     min-height: 30vh;
@@ -9,7 +12,16 @@ main{
     min-height: 65vh;
 }
 footer{
-  background-color: #0054a4;
+  background-color: #1e293b !important; 
+  min-height: 5vh;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
 }
 
 #topbar {
@@ -47,25 +59,26 @@ footer{
 /* Casrousel */
 .box {
   margin-top: 8rem;
-  margin-left: 38rem;
-  
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  
   width: 100px;
   height: 100px;
   transform-style: preserve-3d;
   animation: animate 20s linear infinite;
 }
+
 @keyframes animate {
   0% {
-      transform: perspective(1000px) rotateY(0deg);
+    transform: perspective(1000px) rotateY(0deg);
   }
   100% {
-      transform: perspective(1000px) rotateY(360deg);
+    transform: perspective(1000px) rotateY(360deg);
   }
 }
+
 .box span {
   position: absolute;
   top: 0;
@@ -74,9 +87,10 @@ footer{
   height: 100%;
   transform-origin: center;
   transform-style: preserve-3d;
-  transform: rotateY(calc(var(--i)* 45deg)) translateZ(400px);
+  transform: rotateY(calc(var(--i)* 45deg)) translateZ(200px); /* Ajusta la distancia en dispositivos móviles */
   -webkit-box-reflect: below 0px linear-gradient(transparent,transparent, #0004);
 }
+
 .box span img {
   position: absolute;
   top: 0;
@@ -85,6 +99,33 @@ footer{
   height: 100%;
   object-fit: cover;
 }
+
+/* Media query para dispositivos móviles pequeños (320px) */
+@media (max-width: 320px) {
+  .box {
+    margin-top: 2rem; /* Ajusta el margen superior en dispositivos móviles */
+    width: 60px; /* Ajusta el ancho en dispositivos móviles */
+    height: 60px; /* Ajusta la altura en dispositivos móviles */
+  }
+  
+  .box span {
+    transform: rotateY(calc(var(--i)* 45deg)) translateZ(100px); /* Ajusta la distancia en dispositivos móviles */
+  }
+}
+
+/* Media query para dispositivos móviles medianos (768px) */
+@media (max-width: 768px) {
+  .box {
+    margin-top: 2rem; /* Ajusta el margen superior en dispositivos móviles */
+    width: 80px; /* Ajusta el ancho en dispositivos móviles */
+    height: 80px; /* Ajusta la altura en dispositivos móviles */
+  }
+  
+  .box span {
+    transform: rotateY(calc(var(--i)* 45deg)) translateZ(100px); /* Ajusta la distancia en dispositivos móviles */
+  }
+}
+
 /* Footer */
 .whatsapp{
   position: relative;  
@@ -375,16 +416,17 @@ button {
 /* Estilos para el formulario de transferencia */
 .container-transfer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
+  box-shadow: #333837;
 }
 
-.container-form-transfer {
-  flex: 1;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.form-transfer {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px 40px;
+
 }
 
 .label-transfer {
@@ -419,4 +461,155 @@ button {
 /* Clase para texto verde */
 .text-green {
   color: green;
+}
+
+
+
+@property --a { 
+  syntax: "<angle>";
+  initial-value: 0deg; 
+  inherits: true;
+}
+
+@property --d { 
+  syntax: "<percentage>";
+  initial-value: 0%; 
+  inherits: true;
+}
+
+.card-img-top {
+  --b: 10px; /* control the border thickness */
+  --g: 20px; /* control the gap */
+  
+  --d: 30%;
+  --a: 45deg;
+  --_o:50% + (var(--d) + var(--g) + var(--b));
+  --_i:50% + (var(--d) + var(--g));
+  --_f:50% + (var(--d));
+  clip-path: polygon(
+    /*  */
+    calc(var(--_o)*sin(-45deg + var(--a))) calc(var(--_o)*cos(-45deg + var(--a))),
+    calc(var(--_o)*sin( 45deg + var(--a))) calc(var(--_o)*cos( 45deg + var(--a))),
+    calc(var(--_o)*sin(135deg + var(--a))) calc(var(--_o)*cos(135deg + var(--a))),
+    calc(var(--_o)*sin(225deg + var(--a))) calc(var(--_o)*cos(225deg + var(--a))),
+    calc(var(--_o)*sin(-45deg + var(--a))) calc(var(--_o)*cos(-45deg + var(--a))),
+    /*  */
+    calc(var(--_i)*sin(-45deg + var(--a))) calc(var(--_i)*cos(-45deg + var(--a))),
+    calc(var(--_i)*sin(225deg + var(--a))) calc(var(--_i)*cos(225deg + var(--a))),
+    calc(var(--_i)*sin(135deg + var(--a))) calc(var(--_i)*cos(135deg + var(--a))),
+    calc(var(--_i)*sin( 45deg + var(--a))) calc(var(--_i)*cos( 45deg + var(--a))),
+    calc(var(--_i)*sin(-45deg + var(--a))) calc(var(--_i)*cos(-45deg + var(--a))),
+    /*  */
+    calc(var(--_f)*sin(-45deg + var(--a))) calc(var(--_f)*cos(-45deg + var(--a))),
+    calc(var(--_f)*sin( 45deg + var(--a))) calc(var(--_f)*cos( 45deg + var(--a))),
+    calc(var(--_f)*sin(135deg + var(--a))) calc(var(--_f)*cos(135deg + var(--a))),
+    calc(var(--_f)*sin(225deg + var(--a))) calc(var(--_f)*cos(225deg + var(--a))),
+    calc(var(--_f)*sin(-45deg + var(--a))) calc(var(--_f)*cos(-45deg + var(--a)))
+);
+
+ 
+  outline-offset: 2px; /* a small value to avoid a visual glitch */
+  cursor: pointer;
+  transition: --d .3s,--a .2s .2s;
+}
+
+.card-img-top:hover {
+  --a: 0deg;
+  --d: 71%;
+  transition: --a .3s,--d .2s .2s;
+}
+
+
+nav,
+.offcanvas {
+  background-color: #1e293b;
+}
+.navbar-toggler {
+  border: none;
+}
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav > li:hover {
+    background-color: #0dcaf0;
+  }
+}
+
+
+
+.cube-container {
+  width: 200px;
+  height: 200px;
+  perspective: 800px;
+  margin: 50px auto;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: rotate 8s infinite linear;
+}
+
+.face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  color: rgb(21, 89, 214);
+  font-size: 18px;
+  text-align: center;
+  line-height: 200px;
+  background: transparent;
+  opacity: 0.9;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ff6b6b, #355c7d, #557d35, #cfcf16, #a51f1f) 1;
+  box-shadow: 0 0 100px rgba(8, 91, 245, 0.8);
+}
+
+.front {
+  transform: translateZ(100px);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(100px);
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+
+.cube-container:hover .cube {
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+
+.card-chart{
+  background-color: rgb(21, 89, 214);
+  box-shadow: 0 0 100px rgba(8, 91, 245, 0.8);
 }

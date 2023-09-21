@@ -75,7 +75,15 @@ public class Loan {
     public double getInterest() {
         return interest;
     }
-    public void setInterest(double interest) {
+
+    public void setName(LoanType name) {
+        this.name = name;
+    }
+    public void setInterest(Double interest) {
         this.interest = interest;
     }
+    public void setPayments(List<Integer> payments) {
+        this.payments = payments;
+    }
+
 }

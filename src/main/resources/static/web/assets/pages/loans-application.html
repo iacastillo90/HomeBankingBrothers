@@ -22,115 +22,152 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <span> 1234 Shingle Street, Roofville, RC 56789</span>
+                        <span> 123 Banking Street, Cityville, BC 56789</span>
                     </div>
-                    <div class="col-md-4 text-end">               
-                    </div>
+                    <div class="col-md-4 text-end">              
+                    </div> 
                 </div>
             </div>
         </div>
-        <nav class="navbar  navbar-expand-lg bg-body-tertiary py-3">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="../images/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                    HomeBanking Brothers
+            <!-- MENU START  -->
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <!-- NAV CONTAINER START -->
+            <div class="container-fluid">
+                
+                <a href="#" class="navbar-brand  fw-semibold ms-5">
+                    <img src="../images/logo.png" alt="Logo" width="30" height="30" >
+                    Home Banking Brothers
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link" href="./cards.html">Cards</a>
-                      <a class="nav-link" href="./accounts.html">Accounts</a>
-                      <a class="nav-link" href="./transaction.html">Transaction</a>
-                      <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
-                    </div>
+            <!-- NAV BUTTON  -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#menuLateral"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- OFFCANVAS MAIN CONTAINER START -->
+            <section
+                class="offcanvas offcanvas-start"
+                id="menuLateral"
+                tabindex="-1"
+            >
+                <div class="offcanvas-header" data-bs-theme="dark">
+                <h5 class="offcanvas-title text-info">Home Banking Brothers</h5>
+                <button
+                    class="btn-close"
+                    type="button"
+                    aria-label="Close"
+                    data-bs-dismiss="offcanvas"
+                ></button>
                 </div>
+                <!-- OFF CANVAS MENU LINKS  START-->
+                <div
+                class="offcanvas-body d-flex flex-column justify-content-between px-0"
+                >
+                <ul class="navbar-nav fs-5 justify-content-evenly">
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="./cards.html">Cards</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="./accounts.html">Accounts</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" href="./transaction.html">Transaction</a>
+                    </li>
+                    <li class="nav-item p-3 py-md-1">
+                        <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
+                    </li>
+                </ul>
+                </div>
+            </section>
+            <!-- OFFCANVAS MAIN CONTAINER END  -->
             </div>
         </nav>
-            <section id="carousel" class="carousel slide " data-bs-ride="carousel">
-        <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1">Home</h2>
-        <div class="carousel-inner">
-            <div class="carousel-item ">
-                <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+        <section id="carousel" class="carousel slide " data-bs-ride="carousel">
+            <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1"></h2>
+            <div class="carousel-inner">
+                <div class="carousel-item ">
+                    <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+                </div>
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
+                </div>
+                <div class="carousel-item">
+                    <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
+                </div>
             </div>
-            <div class="carousel-item active" data-bs-interval="10000">
-                <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
-            </div>
-            <div class="carousel-item">
-                <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-    </section>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </section>
     </header>
     <main id="app">
-        <form class="form-horizontal container p-3 rounded-4 my-5 text-light justify-content-center d-flex"
-                    id="form-loans">
-                    <fieldset>
-                        <!-- Form Name -->
-                        <legend>Ask for a loan</legend>
-    
-                        <!-- Select Basic -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="selectbasic">Select Loan</label>
-                            <div class="col-md-12">
-                                <select id="selectbasic" name="selectbasic" class="form-control"
-                                    @change="filterLoansPayments" v-model="selectedLoan">
-                                    <template v-for="loan in loans">
-                                        <option :value="loan.id">{{loan.name}}</option>
-                                    </template>
-                                </select>
-                            </div>
+        <section class=" container-transfer flex-column col-md-11">
+            <h1 class="mb-5 mt-5 text-center">Ask for a loan</h1>
+            <div class="form-transfer col-md-4">
+                <section class=" mt-5">
+                    <div class="form-check">
+                        <label class="form-check-labe" for="selectbasic">Select Loan</label>
+                        <div class="col-md-12">
+                            <select id="selectbasic" name="selectbasic" class="form-control"
+                                @change="filterLoansPayments" v-model="selectedLoan">
+                                <template v-for="loan in loans">
+                                    <option :value="loan.id">{{loan.name}}</option>
+                                </template>
+                            </select>
                         </div>
-    
-                        <!-- Select Basic -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="selectbasic">Origin Account</label>
-                            <div class="col-md-12">
-                                <select id="selectbasic" name="selectbasic" class="form-control" v-model="numberOrigin">
-                                    <template v-for="account in accounts">
-                                        <option :value="account.number">{{account.number}}</option>
-                                    </template>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-check">
+                        <label class=" form-check-label" for="selectbasic">Origin Account</label>
+                        <div class="col-md-12">
+                            <select id="selectbasic" name="selectbasic" class="form-control" v-model="numberOrigin">
+                                <template v-for="account in accounts">
+                                    <option :value="account.number">{{account.number}}</option>
+                                </template>
+                            </select>
                         </div>
-    
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="amount">Amount</label>
-                            <div class="col-md-12">
-                                <input id="amount" name="amount" type="text" placeholder="$$$" class="form-control input-md"
-                                    required="" v-model="amount" />
-                            </div>
+                    </div>
+                    <div class="form-check">
+                        <label class="col-md-4 control-label" for="amount">Amount</label>
+                        <div class="col-md-12">
+                            <input id="amount" name="amount" type="text" placeholder="$$$" class="form-control input-md"
+                                required="" v-model="amount" />
                         </div>
-    
-                        <!-- Select Basic -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="payments">Payments</label>
-                            <div class="col-md-12">
-                                <select id="payments" name="payments" class="form-control" v-model="payments">
-                                    <template v-for="payment in filterPayments.payments">
-                                        <option :value="payment">{{payment}}</option>
-                                    </template>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-check mb-5">
+                        <label class="form-check-label" for="payments">Payments</label>
+                        <div class="col-md-12">
+                            <select id="payments" name="payments" class="form-control" v-model="payments">
+                                <template v-for="payment in filterPayments.payments">
+                                    <option :value="payment">{{payment}}</option>
+                                </template>
+                            </select>
                         </div>
-    
-                        <button type="submit" @click.prevent="sendLoan"  @click.prevent="logOut" class="btn btn-success my-3 texte-center">Send loan</button>
-                    </fieldset>
-                </form>  
+                    </div>
+                </section>
+            </div>
+            <div class="d-flex justify-content-center mt-4" >
+                <button type="submit" @click="sendLoan">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" style="height: 3rem;"
+                        stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z">
+                        </path>
+                    </svg>
+                    Create Loan
+                </button>
+            </div>
+        </section>     
     </main>
     <footer>
         <nav class="bg-footer d-flex justify-content-between border rounded align-items-center">

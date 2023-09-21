@@ -12,4 +12,5 @@ public interface LoanService {
     List<LoanDTO> getLoanApplicationDTO();
     void saveLoan(Loan Loan);
     Loan findByName(LoanType name);
+
 }

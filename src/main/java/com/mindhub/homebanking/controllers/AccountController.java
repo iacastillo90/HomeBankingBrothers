@@ -25,26 +25,29 @@ import java.util.stream.Collectors;
 public class AccountController {
 
     @Autowired
+    private AccountRepository   accountRepository;
+
+
+    @Autowired
     private ClientService clientService;
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public List<AccountDTO> getAccountsDTO(){
         return accountService.getAccountsDTO();
     }
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id){
         return accountService.getAccountDTOCurrent(id);
     }
 
-    @GetMapping("/clients/current/accounts")
-    public ResponseEntity<List<AccountDTO>> getClientAccounts(Authentication authentication) {
-        Client client = clientService.findByEmail(authentication.getName());
-        List<Account> accounts = accountService.findByClientList(client);
-        return new ResponseEntity<>(accounts.stream()
-                .map(AccountDTO::new)
-                .collect(Collectors.toList()), HttpStatus.OK);
+    @GetMapping("clients/current/accounts/true")
+    public List<AccountDTO> getAccountDtoTrue(){
+        List<AccountDTO> accountDTOList= accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());
+        List<AccountDTO> accountDTOListTrue=accountDTOList.stream().filter(AccountDTO::getIsActive).collect(Collectors.toList());
+        return  accountDTOListTrue;
+
     }
 
     @PostMapping("/clients/current/accounts")
@@ -84,6 +87,22 @@ public class AccountController {
     public String getStringRandomNumber() {
         int randomNumber = getRandomNumber(min, max);
         return String.valueOf(randomNumber);
+    }
+
+
+    @PatchMapping("/clients/current/accounts/delete/{id}")
+    public ResponseEntity<Object> deleteAccount(@PathVariable Long id) {
+        Account account = accountRepository.findById(id).orElse(null);
+
+
+        if (account.getBalance() > 0) {
+            return new ResponseEntity<>("No puede eliminar la cuenta con saldo", HttpStatus.FORBIDDEN);
+        }
+
+        account.setIsActive(false);
+        accountRepository.save(account);
+
+        return new ResponseEntity<>("Cuenta borrada", HttpStatus.CREATED);
     }
 }
 

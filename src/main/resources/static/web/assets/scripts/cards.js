@@ -6,15 +6,26 @@ const app = Vue.createApp({
             checkColor: null,
             fromDate: "",
             thruDate: "",
-              condition: true,
+            cardsTrue: []
         };
     },
     created() {
         this.loadData();
-        const urlParams = new URLSearchParams(window.location.search);
-        var myParam = urlParams.get("id");
     },
     methods: {
+        checkExpiryAlert() {
+            const expiringSoonCards = this.cardsTrue.filter(card => card.isExpiringSoon);
+
+            if (expiringSoonCards.length > 0) {
+                // Mostrar una alerta o cambiar el estilo de las tarjetas expiradas
+                // Por ejemplo, puedes mostrar una alerta usando una librería de notificaciones como SweetAlert2
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Tarjetas Próximas a Vencer',
+                    text: 'Tienes tarjetas que están próximas a vencer en 30 días o menos.',
+                });
+            }
+        },
         loadData() {
             axios.get('http://localhost:8080/api/clients/current')
                 .then(response => {
@@ -23,19 +34,24 @@ const app = Vue.createApp({
                         this.cards = client.cards;
                         this.fromDate = response.data.cards.map(card => card.fromDate.slice(2, 7).replace(/-/g, '/'))
                         this.thruDate = response.data.cards.map(card => card.thruDate.slice(2, 7).replace(/-/g, '/'))
-                        console.log(this.cards);
+                        this.cardsTrue = this.cards.filter(card => card.isActive == true)
+                        
+                        // Comprueba si alguna tarjeta está próxima a vencer
+                        this.checkExpiryAlert();
                     } else {
-                        console.error('La respuesta de la solicitud está vacía o no tiene la propiedad "cards".');
+                        console.error('The response from the request is empty or does not have the "cards" property.');
                     }
                 })
                 .catch(error => {
-                    console.error('Error al obtener los datos de las tarjetas:', error);
+                    console.error('Error fetching card data:', error);
                 });
         },
         newCard() {
-            // Registra los valores antes de enviar la solicitud
-            console.log('checkType:', this.checkType);
-            console.log('checkColor:', this.checkColor);
+            if (this.cardsTrue.length >= 6) {
+                // Alert if the maximum number of cards is reached
+                window.alert("You cannot create more than 6 cards.");
+                return;
+            }
 
             axios.post("/api/clients/current/cards", null, {
                 params: {
@@ -44,40 +60,32 @@ const app = Vue.createApp({
                 }
             })
             .then(response => {
-                window.alert("La tarjeta se ha creado con éxito");
-                console.log("CREADO");
+                window.alert("The card has been created successfully.");
                 return window.location.reload();
             })
             .catch(error => {
-                console.error('Error al crear la tarjeta:', error);
+                console.error('Error creating the card:', error);
             });
         },
         deleteCards(id) {
             axios.patch(`/api/clients/current/cards/delete/` + id)
                 .then(response => {
-                    return window.location.reload()
+                    return window.location.reload();
                 })
         },
         logout() {
             axios.post(`http://localhost:8080/api/logout`)
               .then(response => {
-                // Redirige al usuario a la página de inicio de sesión
+                // Redirect the user to the login page
                 window.location.href = '/web/Index.html';
               })
               .catch(error => {
-                console.error('Error al cerrar sesión', error);
+                console.error('Error logging out', error);
               });
-          },
-        getCardClass(cardType) {
-            // Define your logic to determine the card class based on cardType
-            // For example:
-            if (cardType === 'DEBITO') {
-                return 'debit-card';
-            } else if (cardType === 'CREDITO') {
-                return 'credit-card';
-            } else {
-                return 'default-card';
-            }
+        },
+        formatDate(date) {
+            const options = {  month: 'numeric', year: 'numeric' };
+            return new Date(date).toLocaleDateString(undefined, options);
         },
     },
 });

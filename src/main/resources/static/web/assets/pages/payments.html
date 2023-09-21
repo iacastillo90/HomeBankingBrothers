@@ -3,31 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction | HomeBanking</title>
+    <title>Account | HomeBanking</title>
     <link rel="shortcut icon" href="../images/2acd7a1377fa463e974c02cf00d52e75.png" type="image/x-icon">
     <link rel="stylesheet" href="../Style/style.css">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-    <style>
-    nav,
-    .offcanvas {
-      background-color: #1e293b;
-    }
-    .navbar-toggler {
-      border: none;
-    }
-    .navbar-toggler:focus {
-      outline: none;
-      box-shadow: none;
-    }
-  
-    @media (max-width: 768px) {
-      .navbar-nav > li:hover {
-        background-color: #0dcaf0;
-      }
-    }
-    </style>
 <body>
     <header>
         <div id="topbar" class="">
@@ -91,7 +71,7 @@
                         <a class="nav-link" href="./accounts.html">Accounts</a>
                     </li>
                     <li class="nav-item p-3 py-md-1">
-                        <a class="nav-link" href="#">Transaction</a>
+                        <a class="nav-link" href="./transaction.html">Transaction</a>
                     </li>
                     <li class="nav-item p-3 py-md-1">
                         <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
@@ -128,80 +108,32 @@
             </button>
         </section>
     </header>
-    <main id="app">
-        <section class=" container-transfer flex-column col-md-11">
-            <h1 class="mb-5 mt-5 text-center">Make your transactions</h1>
-            <div class="form-transfer col-md-4">
-                    <section class=" mt-2">
-                        <h2>Destination:</h2>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="destination"
-                                id="own" value="own" checked="checked">
-                            <label class="form-check-label" for="own">
-                                Own &#160
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="destination"
-                                id="others" value="others">
-                            <label class="form-check-label" for="others">
-                                Others
-                            </label>
-                        </div>
-                    </section>
-                    <div class="signupFrm mb-1 d-flex flex-column align-items-center">
-                        <label class="label-transfer" for="source">Source account</label>
-                        <select name="own" id="own" v-model="originAccount"
-                        class="form-select form-control w-75">
-                        <option class="option-transfer" value="" disabled>select an account</option>
-                        <template v-for="account of sourceAccount">
-                            <option class="option-transfer" :value="account.number">{{account.number}}&#160 $
-                                {{account.balance}}</option>
-                        </template>
-                        </select>
-                    </div>
-                    <template v-if="destination === 'others'">
-                        <div class="signupFrm mb-1 d-flex flex-column align-items-center">
-                            <label class="label-transfer" for="others">Destination account</label>
-                            <input type="text" v-model="destinationAccount" name="others" id="others"
-                                class="form-control w-75">
-                        </div>
-                    </template>
-                    <template v-else>
-                        <div class="signupFrm mb-1 d-flex flex-column align-items-center">
-                            <label class="label-transfer" for="own">Destination account</label>
-                            <select name="source" id="source" v-model="destinationAccount" class="form-select form-control w-75">
-                                <option class="option-transfer" value="" disabled>select an account</option>
-                                <template v-for="account of sourceAccount">
-                                    <option class="option-transfer" :value="account.number">{{account.number}} </option>
-                                </template>
-                            </select>
-                        </div>
-                    </template>
-                    <div class="signupFrm mb-1 d-flex flex-column align-items-center">
-                        <label class="label-transfer" for="amount"><i class="bi bi-currency-dollar"></i>Amount</label>
-                        <input type="number" v-model="amount" name="amount" id="amount" class="form-control w-75"
-                            aria-label="Dollar amount (with dot and two decimal places)">
-                    </div>
-                    <div class="signupFrm mb-4 d-flex flex-column align-items-center">
-                        <label class="label-transfer" for="description">Description</label>
-                        <input type="text" v-model="description" name="description" id="description"
-                            class="form-control w-75">
-                    </div>
-               
-            </div>
-            <div class="d-flex justify-content-center " >
-                <button type="submit" @click="addTransaction" class="btn-create-acc btn-create-transfer" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" style="height: 3rem;"
-                        stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z">
-                        </path>
-                    </svg>
-                    Create transfer
-                </button>
-            </div>
-        </section>
+    <main> 
+        <div id="app">
+            <h1>Pago de Préstamos</h1>
+            <h1>Realizar un Pago</h1>
+            <form id="paymentForm" action="/api/payments" method="POST">
+                <label for="number">Número de Tarjeta:</label>
+                <input type="text" id="number" name="number" required><br><br>
+        
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required><br><br>
+        
+                <label for="amount">Monto:</label>
+                <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+        
+                <label for="description">Descripción:</label>
+                <input type="text" id="description" name="description" required><br><br>
+        
+                <label for="thruDate">Fecha de Vencimiento:</label>
+                <input type="date" id="thruDate" name="thruDate" required><br><br>
+        
+                <label for="name">Nombre en la Tarjeta:</label>
+                <input type="text" id="name" name="name" required><br><br>
+        
+                <input type="submit" value="Realizar Pago">
+            </form>
+        </div>
     </main>
     <footer>
         <nav class="bg-footer d-flex justify-content-between border rounded align-items-center">
@@ -222,10 +154,6 @@
                     </a>
                 </li>
             </ul>
-            <div class="copyright float-right" id="date">
-                 made with <i class="material-icons">favorite</i> by
-                <a href="https://github.com/iacastillo90?tab=repositories" target="_blank">Ivan Castillo</a> for a better web.
-              </div>
             <section class="d-flex align-items-center mx-4">
                 <h4 class="text-light">COHORT 49</h4>
                 <a class="navbar-brand" href="https://mindhublab.com/">
@@ -233,10 +161,10 @@
                 </a>
             </section>
         </nav>
-    </footer>
+    </footer>     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../scripts/transaction.js"></script>
+<script src="../scripts/payments.js"></script>
 </html>

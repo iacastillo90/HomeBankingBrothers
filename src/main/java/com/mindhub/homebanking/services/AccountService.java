@@ -14,4 +14,5 @@ public interface AccountService {
     void saveAccount(Account account);
     List<Account> findByClientList (Client client);
     Account findByNumber(String number);
+    boolean existsByNumber(String number);
 }
