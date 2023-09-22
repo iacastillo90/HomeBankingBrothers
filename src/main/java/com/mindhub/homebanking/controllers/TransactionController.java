@@ -131,8 +131,8 @@ public class TransactionController {
             return new ResponseEntity<>("you cannot do this", HttpStatus.BAD_REQUEST);
         }
 
-        String dateInitWithoutTime = dateInit.substring(0, 10); // Obtener solo la fecha en formato "yyyy-MM-dd"
-        String dateEndWithoutTime = dateEnd.substring(0, 10); // Obtener solo la fecha en formato "yyyy-MM-dd"
+        String dateInitWithoutTime = dateInit.substring(0, 10); //  "yyyy-MM-dd"
+        String dateEndWithoutTime = dateEnd.substring(0, 10); //  "yyyy-MM-dd"
 
         LocalDate localDateInit = LocalDate.parse(dateInitWithoutTime);
         LocalDate localDateEnd = LocalDate.parse(dateEndWithoutTime);

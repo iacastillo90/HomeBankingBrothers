@@ -11,21 +11,33 @@ const app = Vue.createApp({
     },
     created() {
         this.loadData();
+        this.$nextTick(() => {
+            // Llamada a checkExpiryAlert después de cargar SweetAlert2
+            this.checkExpiryAlert();
+        });
     },
     methods: {
         checkExpiryAlert() {
-            const expiringSoonCards = this.cardsTrue.filter(card => card.isExpiringSoon);
-
-            if (expiringSoonCards.length > 0) {
-                // Mostrar una alerta o cambiar el estilo de las tarjetas expiradas
-                // Por ejemplo, puedes mostrar una alerta usando una librería de notificaciones como SweetAlert2
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Tarjetas Próximas a Vencer',
-                    text: 'Tienes tarjetas que están próximas a vencer en 30 días o menos.',
-                });
-            }
-        },
+        const currentDate = new Date(); // Obtén la fecha actual
+    
+        const expiringSoonCards = this.cardsTrue.filter(card => {
+            const thruDate = new Date(card.thruDate); // Convierte la fecha de vencimiento de la tarjeta en un objeto Date
+            const daysUntilExpiration = Math.ceil((thruDate - currentDate) / (1000 * 60 * 60 * 24)); // Calcula los días hasta el vencimiento
+    
+            // Filtra las tarjetas que están próximas a vencer (30 días o menos)
+            return daysUntilExpiration <= 30 && daysUntilExpiration >= 0;
+        });
+    
+        if (expiringSoonCards.length > 0) {
+            // Mostrar una alerta o cambiar el estilo de las tarjetas expiradas
+            // Por ejemplo, puedes mostrar una alerta usando una librería de notificaciones como SweetAlert2
+            Swal.fire({
+                icon: 'warning',
+                title: 'Tarjetas Próximas a Vencer',
+                text: 'Tienes tarjetas que están próximas a vencer en 30 días o menos.',
+            });
+        }
+    },
         loadData() {
             axios.get('http://localhost:8080/api/clients/current')
                 .then(response => {

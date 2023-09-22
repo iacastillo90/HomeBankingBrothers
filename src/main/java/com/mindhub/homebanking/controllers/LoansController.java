@@ -72,16 +72,16 @@ public class LoansController {
         // Establecer los porcentajes de interés basados en el tipo de préstamo
         switch (loanApplicationDTO.getTypeName()) {
             case "MORTGAGE":
-                loanApplicationDTO.setInterest(0.20); // 20% de interés para hipotecas
+                loanApplicationDTO.setInterest(0.20);
                 break;
             case "PERSONAL":
-                loanApplicationDTO.setInterest(0.15); // 15% de interés para préstamos personales
+                loanApplicationDTO.setInterest(0.15);
                 break;
             case "AUTOMOTIVE":
-                loanApplicationDTO.setInterest(0.25); // 25% de interés para préstamos automotrices
+                loanApplicationDTO.setInterest(0.25);
                 break;
             default:
-                // Manejar el caso en el que el tipo de préstamo no se reconoce
+
                 mensaje = "Invalid loan type.";
                 return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
