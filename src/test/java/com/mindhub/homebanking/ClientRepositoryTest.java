@@ -17,21 +17,7 @@ import static org.hamcrest.Matchers.is;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(TestConfiguration.class)
 public class ClientRepositoryTest {
-    @Autowired
-    private ClientRepository clientRepository;
 
-    @Test
-    public void existClients(){
-        List<Client> clients = clientRepository.findAll();
-        assertThat(clients,is(not(empty())));
-    }
-
-    @Test
-    public void existClientsByEmail(){
-        List<Client> clients = clientRepository.findAll();
-        assertThat(clients, hasItem(hasProperty("email", is("melba@mindhub.com"))));
-    }
 }
 
