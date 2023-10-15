@@ -455,12 +455,12 @@ button {
 
 /* Clase para texto rojo */
 .text-red {
-  color: red;
+  color: red !important;
 }
 
 /* Clase para texto verde */
 .text-green {
-  color: green;
+  color: green !important;
 }
 
 
@@ -612,4 +612,30 @@ nav,
 .card-chart{
   background-color: rgb(21, 89, 214);
   box-shadow: 0 0 100px rgba(8, 91, 245, 0.8);
+}
+
+
+.main--state-in {
+  animation: wipe-in-left;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.overrides {
+  --transition__duration: 1s;            /* default: 2.5s */
+  --transition__easing: ease-in-out;     /* default: cubic-bezier(.25, 1, .30, 1) */
+  --transition__delay: 1s;               /* default: 0 */
+}
+@keyframes circle-swoop {
+  from {
+    clip-path: var(--circle-top-right-out);
+  }
+  to {
+    clip-path: var(--circle-bottom-right-in);
+  }
+}
+
+.--in-custom {
+  --transition__duration: 1s;
+  --transition__easing: ease-in-out;
+  animation-name: circle-swoop;
 }

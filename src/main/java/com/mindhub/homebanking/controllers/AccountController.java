@@ -47,7 +47,6 @@ public class AccountController {
         List<AccountDTO> accountDTOList= accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());
         List<AccountDTO> accountDTOListTrue=accountDTOList.stream().filter(AccountDTO::getIsActive).collect(Collectors.toList());
         return  accountDTOListTrue;
-
     }
 
     @PostMapping("/clients/current/accounts")
@@ -93,16 +92,17 @@ public class AccountController {
     @PatchMapping("/clients/current/accounts/delete/{id}")
     public ResponseEntity<Object> deleteAccount(@PathVariable Long id) {
         Account account = accountRepository.findById(id).orElse(null);
-
+        String mensaje = "";
 
         if (account.getBalance() > 0) {
-            return new ResponseEntity<>("No puede eliminar la cuenta con saldo", HttpStatus.FORBIDDEN);
+            mensaje = "It's not possible to delete the account with a balance.";
+            return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
         }
-
         account.setIsActive(false);
         accountRepository.save(account);
 
-        return new ResponseEntity<>("Cuenta borrada", HttpStatus.CREATED);
+        mensaje = "Account deleted.";
+        return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
 }
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account | HomeBanking</title>
     <link rel="shortcut icon" href="../images/2acd7a1377fa463e974c02cf00d52e75.png" type="image/x-icon">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../Style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -27,7 +29,7 @@
             </div>
         </div>
             <!-- MENU START  -->
-        <nav class="navbar navbar-expand-md navbar-dark">
+        <nav class="navbar navbar-expand-md navbar-dark" data-aos="fade-right">
             <!-- NAV CONTAINER START -->
             <div class="container-fluid">
                 
@@ -35,6 +37,7 @@
                     <img src="../images/logo.png" alt="Logo" width="30" height="30" >
                     Home Banking Brothers
                 </a>
+    
             <!-- NAV BUTTON  -->
             <button
                 class="navbar-toggler"
@@ -86,13 +89,13 @@
             <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1"></h2>
             <div class="carousel-inner">
                 <div class="carousel-item ">
-                    <img src="../images/img6.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
+                    <img src="../images/DigitalbankingCarousel.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="City">
                 </div>
                 <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="../images/img7.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
+                    <img src="../images/BankCarousel.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Sky">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="../images/img8.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
+                    <img src="../images/CardCarousel.jpg" class="object-fit-cover w-100" style="height: 20rem" alt="Station">
                 </div>
                 <div class="carousel-item">
                     <img src="../images/img9.jpg" class="object-fit-cover  w-100 " style="height: 20rem" alt="...">
@@ -118,9 +121,9 @@
                                 <h4 class="card-title">Account Transactions</h4>
                             </div>
                             <div class="card-body table-responsive">
-                                <table class="table table-hover"  v-if="transactions.length > 0">
+                                <table class="table table-hover" v-if="transactionsAndLoans.length > 0">
                                     <thead class="text-warning">
-                                        <th>Transaction ID</th>
+                                        <th>ID</th>
                                         <th>Type</th>
                                         <th>Amount</th>
                                         <th>Description</th>
@@ -128,16 +131,17 @@
                                         <th>Date</th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="transaction in transactions" :key="transaction.id">
-                                          <td>{{ transaction.id }}</td>
-                                          <td :class="getTransactionClass(transaction.type)">{{ transaction.type }}</td>
-                                          <td :class="getTransactionClass(transaction.type)">{{ formatAmount(transaction.amount) }}</td>
-                                          <td :class="getTransactionClass(transaction.type)">{{ transaction.description }}</td>
-                                          <td>{{formatAmount(transaction.balance)}}</td>
-                                          <td>{{ formatDateTime(transaction.date) }}</td>
+                                        <tr v-for="item in transactionsAndLoans" :key="item.id">
+                                            <td>{{ item.id }}</td>
+                                            <td :class="getTransactionClass(item.type)">{{ item.type }}</td>
+                                            <td :class="getTransactionClass(item.type)">{{ formatAmount(item.amount) }}</td>
+                                            <td :class="getTransactionClass(item.type)">{{ item.description }}</td>
+                                            <td>{{ formatAmount(item.balance) }}</td>
+                                            <td>{{ formatDateTime(item.date) }}</td>
                                         </tr>
-                                      </tbody>                                      
+                                    </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
@@ -200,7 +204,12 @@
     </footer>     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+  </script>
 <script src="../scripts/account.js"></script>
 </html>

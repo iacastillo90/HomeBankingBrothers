@@ -9,7 +9,8 @@ const app = createApp({
       payments: null,
       accounts: [],
       filterPayments: [],
-      selectedLoan: null
+      selectedLoan: null,
+      selectedLoanDetails: '',
     };
   },
   created() {
@@ -18,15 +19,14 @@ const app = createApp({
   },
   methods: {
     loadData() {
-      axios
-        .get("http://localhost:8080/api/clients/current/accounts/true")
-        .then((response) => {
-          this.accounts = response.data;
-          console.log("Cuentas recuperadas con éxito:", this.accounts);
-        })
-        .catch((error) => {
-          console.error("Error al recuperar cuentas:", error);
-        });
+        axios
+            .get ("http://localhost:8080/api/clients/current")
+            .then((response) => {
+                const accountsData = response.data.accounts;
+                this.accounts = accountsData.filter(account => account.isActive);
+
+            })
+    
     },
     loadDataLoans() {
       axios
@@ -40,75 +40,137 @@ const app = createApp({
         });
     },
     filterLoansPayments() {
-        if (!this.selectedLoan) {
-            // Manejar el caso en que no se ha seleccionado ningún préstamo.
-            window.alert('Please select a loan before proceeding.');
-            return;
-        }
-    
-        const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan);
-    
-        if (!selectedLoan) {
-            // Manejar el caso en que el préstamo seleccionado no se encuentra.
-            window.alert('Selected loan not found. Please try again.');
-            return;
-        }
-    
-        // Si llegamos aquí, el préstamo seleccionado es válido.
-        this.filterPayments = selectedLoan;
-    },
+      if (!this.selectedLoan) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Loan Not Selected',
+              text: 'Please select a loan before proceeding.',
+          });
+          return;
+      }
+      const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan); 
+      if (!selectedLoan) {
+          // Manejar el caso en que el préstamo seleccionado no se encuentra.
+          Swal.fire({
+              icon: 'error',
+              title: 'Selected Loan Not Found',
+              text: 'The selected loan was not found. Please try again.',
+          });
+          return;
+      }
+      this.filterPayments = selectedLoan;
+      this.selectedLoanDetails = `Loan Type: ${selectedLoan.name}, Interest Rate: ${selectedLoan.interest}%`;
+  },
     sendLoan() {
-        if (!this.selectedLoan || !this.numberOrigin || !this.amount || !this.payments) {
-          window.alert('Please complete all required fields.');
+      if (!this.selectedLoan || !this.numberOrigin || !this.amount || !this.payments) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Incomplete Fields',
+              text: 'Please complete all required fields.',
+          });
           return;
-        }
-      
-        // Asegúrate de que selectedLoan sea un objeto que contiene el nombre correcto.
-        const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan);
-      
-        if (!selectedLoan) {
-          window.alert('The selected loan is not found. Please try again.');
+      }
+  
+      const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan);
+      if (!selectedLoan) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Loan Not Found',
+              text: 'The selected loan is not found. Please try again.',
+          });
           return;
-        }
-      
-        const loanDetails = {
-          typeName: selectedLoan.name, // Usar el nombre del préstamo en lugar del ID.
+      }
+  
+      const loanDetails = {
+          typeName: selectedLoan.name, // Use the loan name instead of the ID.
           numberAccountDestination: this.numberOrigin,
           amount: parseFloat(this.amount),
           payments: [this.payments]
-        };
-      
-        const confirmation = window.confirm('Do you want to add a new loan?');
-      
-        if (confirmation) {
-          axios
-            .post("http://localhost:8080/api/loans", loanDetails, {
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
-            .then((response) => {
-              console.log("Préstamo agregado con éxito:", response.data);
-              location.reload();
-            })
-            .catch((error) => {
-              console.error('Error al agregar el préstamo:', error);
-              if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
-              }
-            });
-      }
-    },
+      };
+  
+      Swal.fire({
+          title: 'Are you sure you want to add a new loan?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, add loan',
+          cancelButtonText: 'No, cancel'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              axios
+                  .post("/api/loans", loanDetails, {
+                      headers: {
+                          "Content-Type": "application/json"
+                      }
+                  })
+                  .then((response) => {
+                      // Show a success alert using SweetAlert
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Loan Added Successfully',
+                          text: 'The loan has been added successfully.',
+                      }).then(() => {
+                          location.reload();
+                      });
+                  })
+                  .catch((error) => {
+                      console.error('Error adding the loan:', error);
+                      if (error.response) {
+                          console.error('Server Response:', error.response.data);
+                      }
+                      // Show an error alert using SweetAlert
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Error Adding Loan',
+                          text: 'There was an error adding the loan. Please try again later.',
+                      });
+                  });
+          }
+          // If the user clicks "No" or cancels, no action is taken.
+      });
+    },  
     logout() {
-      axios.post(`http://localhost:8080/api/logout`)
-        .then(response => {
-          // Redirige al usuario a la página de inicio de sesión
-          window.location.href = '/web/Index.html';
-        })
-        .catch(error => {
-          console.error('Error al cerrar sesión', error);
-        });
-    }
+    Swal.fire({
+        title: 'Are you sure you want to log out?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, log out',
+        cancelButtonText: 'No, cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.post(`http://localhost:8080/api/logout`)
+                .then(response => {       
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Logout Successful',
+                        text: 'Your session has been successfully closed.',
+                    }).then(() => {
+                        window.location.href = '/web/Index.html';
+                    });
+                })
+                .catch(error => {
+                    console.error('Error logging out', error);
+                });
+        }
+    });
+    }, 
+    calculateInterestAmount() {
+        if (!this.selectedLoan || !this.amount) {
+            return 0;
+        }
+
+        const selectedLoan = this.loans.find((loan) => loan.id === this.selectedLoan); 
+        if (!selectedLoan) {
+            return 0;
+        }
+
+        const interestRate = selectedLoan.interest;
+        const loanAmount = parseFloat(this.amount);
+
+        // Calcular el interés en dinero
+        const interestAmount = (interestRate / 100) * loanAmount;
+
+        return interestAmount.toFixed(2); // Formatear el resultado a dos decimales
+    }, 
   }
 });
 

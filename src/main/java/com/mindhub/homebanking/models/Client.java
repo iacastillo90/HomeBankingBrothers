@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Entity
 public class Client {
     @Id
-    @GenericGenerator(name= "native", strategy = "native")
+   @GenericGenerator(name= "native", strategy = "native")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;

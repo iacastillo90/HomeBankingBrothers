@@ -19,7 +19,7 @@ public class ClientServiceImplement implements ClientService {
     public List<ClientDTO> getClientsDTO() {
         return clientRepository.findAll()
                 .stream()
-                .map(client -> new ClientDTO(client))
+                .map(pepe -> new ClientDTO(pepe))
                 .collect(Collectors.toList());
     }
     @Override

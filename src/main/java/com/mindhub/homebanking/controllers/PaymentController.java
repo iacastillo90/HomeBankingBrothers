@@ -54,18 +54,21 @@ public class PaymentController {
                 .collect(Collectors.toList());
 
         Account account = accountBalance.stream().findFirst().orElse(null);
-        Account accounOrin=accountService.findByNumber( paymentsDTO.getNumber());
+        String mensaje = "";
 
         if (paymentsDTO == null) {
-            return new ResponseEntity<>("Missing data", HttpStatus.BAD_REQUEST);
+            mensaje = "Data is missing.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         if (paymentsDTO.getNumber().isEmpty() || paymentsDTO.getCvv() != card.getCvv() || paymentsDTO.getAmount() <= 0 || paymentsDTO.getDescription().isEmpty()) {
-            return new ResponseEntity<>("Payment data is incorrect", HttpStatus.BAD_REQUEST);
+            mensaje = "Payment data is incorrect.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         if (!paymentsDTO.getName().equals(client.getFirstName() + " " + client.getLastName())) {
-            return new ResponseEntity<>("Name doesn't match", HttpStatus.BAD_REQUEST);
+            mensaje = "Name doesn't match.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         String cardThruDate = card.toString().substring(5, 7) + '/' + card.getThruDate().toString().substring(0, 4);
@@ -76,15 +79,18 @@ public class PaymentController {
 
 
         if (account == null) {
-            return new ResponseEntity<>("La cuenta no existe", HttpStatus.BAD_REQUEST);
+            mensaje = "The account does not exist.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         if (account.getBalance() < paymentsDTO.getAmount()) {
-            return new ResponseEntity<>("Fondos insuficientes", HttpStatus.BAD_REQUEST);
+            mensaje= "Insufficient funds.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         if (!card.getIsActive() || !account.getIsActive()) {
-            return new ResponseEntity<>("La tarjeta o la cuenta ya no se pueden usar", HttpStatus.BAD_REQUEST);
+            mensaje= "The card or account can no longer be used.";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
 
         Double newBalance = account.getBalance() - paymentsDTO.getAmount();
@@ -92,13 +98,17 @@ public class PaymentController {
 
         // Registrar la transacción
         Transaction transaction = new Transaction(TransactionType.DEBIT, paymentsDTO.getAmount(), paymentsDTO.getDescription(), LocalDateTime.now());
-        transaction.setBalance(newBalance);
-        transactionService.saveTransaction(transaction);
-        account.addTransaction( transaction);
 
-        // Guardar los cambios en la cuenta y la transacción
+        account.addTransaction( transaction);
+        Double auxDestiny=account.getBalance()+paymentsDTO.getAmount();
+        account.setBalance(auxDestiny);
         accountService.saveAccount(account);
 
-        return new ResponseEntity<>("Transacción completada con éxito", HttpStatus.OK);
+        transaction.setBalance(newBalance);
+        transactionService.saveTransaction(transaction);
+
+
+        mensaje = "Transaction successfully completed.";
+        return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
 }

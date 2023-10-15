@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 @RestController
 @RequestMapping("/api")
 public class CardController {
@@ -28,9 +26,9 @@ public class CardController {
     @Autowired
     private CardRepository cardRepository;
 
-
     @Autowired
     private CardService cardService;
+
     @Autowired
     private ClientService clientService;
 
@@ -45,20 +43,16 @@ public class CardController {
     }
 
     @GetMapping("clients/current/cards/true")
-    public List<CardDTO> getCardsTrue(){
-        List<CardDTO> CardDTOList= cardRepository.findAll().stream().map(CardDTO::new).collect(Collectors.toList());
-        List<CardDTO> CardDTOListTrue=CardDTOList.stream().filter(CardDTO::getIsActive).collect(Collectors.toList());
-        return  CardDTOListTrue;
-
+    public List<CardDTO> getCardsTrue() {
+        List<CardDTO> CardDTOList = cardRepository.findAll().stream().map(CardDTO::new).collect(Collectors.toList());
+        List<CardDTO> CardDTOListTrue = CardDTOList.stream().filter(CardDTO::getIsActive).collect(Collectors.toList());
+        return CardDTOListTrue;
     }
-
-
 
     @PostMapping("clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication,
                                              @RequestParam CardType cardType,
                                              @RequestParam CardColor cardColor) {
-
         Client clientCurrent = clientService.findByEmail(authentication.getName());
         String mensaje = " ";
 
@@ -75,9 +69,7 @@ public class CardController {
         List<Card> listCard = clientCurrent
                 .getCards()
                 .stream()
-                .filter(card ->
-                        card.getType() == cardType
-                )
+                .filter(card -> card.getType() == cardType)
                 .collect(Collectors.toList());
 
         if (listCard.size() >= 3) {
@@ -85,7 +77,7 @@ public class CardController {
             return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
         }
 
-        String cardNumber = getRandomStringCard();
+        String cardNumber = generateValidCardNumber(); // Genera un número de tarjeta válido
         int cvv = getRandomNumber(100, 999);
 
         LocalDate fromDate = LocalDate.now();
@@ -96,58 +88,61 @@ public class CardController {
         clientCurrent.addCard(card);
         cardService.saveCard(card);
 
-        mensaje= "You have successfully created a card.";
+        mensaje = "You have successfully created a card.";
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
 
+    // Función para generar un número de tarjeta válido utilizando el algoritmo de Luhn
+    public String generateValidCardNumber() {
+        String cardNumber = "";
+        for (int i = 0; i < 16; i++) {
+            int digit = getRandomDigit();
+            if (i % 2 == 0) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+            cardNumber += digit;
+            if (i == 3 || i == 7 || i == 11) {
+                cardNumber += '-';
+            }
+        }
+        return cardNumber;
+    }
 
-    int min1 = 100;
-    int max1 = 999;
+    // Genera un dígito aleatorio del 0 al 9
+    public int getRandomDigit() {
+        return (int) (Math.random() * 10);
+    }
 
     public int getRandomNumber(int min1, int max1) {
-        return (int) ((Math.random() * (this.max1 - this.min1)) + this.min1);
+        return (int) ((Math.random() * (max1 - min1)) + min1);
     }
-
-    int min2 = 0001;
-    int max2 = 9999;
-
-    public int getRandomCardNumber(int min2, int max2) {
-        return (int) ((Math.random() * (max2 - min2)) - min2);
-    }
-
-    public String getRandomCardNumber() {
-        int randomCardNumber = getRandomCardNumber(min2, max2);
-        return String.valueOf(randomCardNumber);
-    }
-    public String getRandomStringCard() {
-        String cardNumber = "";
-        for (int i = 0; i <= 4; i++) {
-            String targserie = getRandomCardNumber();
-            cardNumber += ("-" + targserie);
-        }
-        return cardNumber.substring(1);
-    }
-
 
     @PatchMapping("/clients/current/cards/delete/{id}")
-    public ResponseEntity<Object> deleteCard(Authentication authentication,@PathVariable Long id){
+    public ResponseEntity<Object> deleteCard(Authentication authentication, @PathVariable Long id) {
         Client client = clientService.findByEmail(authentication.getName());
         Card card = cardService.findById(id);
-        Boolean exists= client.getCards().contains(card);
+        Boolean exists = client.getCards().contains(card);
+        String mensaje = " ";
 
-        if (card == null ){
-            return new ResponseEntity<>("Card not found", HttpStatus.NOT_FOUND);
-        }if (!exists){
-            return new ResponseEntity<>("Card not exits", HttpStatus.NOT_FOUND);
-        }if (card.getIsActive() == false){
-            return new ResponseEntity<>("Card already deleted ", HttpStatus.CREATED);
+        if (card == null) {
+            mensaje = "Card not found.";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+        }
+        if (!exists) {
+            mensaje ="Card not exists";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+        }
+        if (!card.getIsActive()) {
+            mensaje = "Card already deleted";
+            return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
         }
         card.setIsActive(false);
         cardService.saveCard(card);
 
-        return new ResponseEntity<>("Set Good: false", HttpStatus.CREATED);
+        mensaje="Set Good: false";
+        return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
-
 }
-
-

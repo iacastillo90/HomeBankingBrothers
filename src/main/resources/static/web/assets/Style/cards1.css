@@ -45,7 +45,7 @@
         display: inline-block;
         width: 320px;
         height: 190px;
-        background-image: url(), linear-gradient(to right bottom, #c0bd26, #dfbf0f, #f5e507, #e2e049, #c7ba05);
+        background-image: url(), linear-gradient(to right bottom, #c0bd26, #dfbf0f, #f5e507, #e2e049, #05c71c);
         /*linear-gradient(to right bottom, #fd8369, #fc7870, #f96e78, #f56581, #ee5d8a)*/
         background-repeat: no-repeat;
         background-position: center;
@@ -268,7 +268,7 @@
     
     .SILVER {
         width: 35 rem;
-        height: 20rem;
+        height: 11,5rem;
         margin: 0 auto;
         border-radius: 0 auto;
         background: linear-gradient(to right top, #cfd1d4, #808486, #4f5555, #7a7c7c, #e0dcdc);
@@ -276,7 +276,7 @@
     
     .GOLD {
         width: 35 rem;
-        height: 20rem;
+        height: 11,5rem;
         margin: 0 auto;
         border-radius: 0 auto;
         background: linear-gradient(to right top, #d6da12, #bea515, #f1ed07, #f5e508, #ffee51);
@@ -284,7 +284,7 @@
     
     .TITANIUM {
         width: 35 rem;
-        height: 20rem;
+        height: 11,5rem;
         margin: 0 auto;
         border-radius: 0 auto;
         background: linear-gradient(to right top, #f3f3f0, #3d3d3c, #79786c25, #626043, #696967);

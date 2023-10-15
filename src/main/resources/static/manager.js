@@ -14,15 +14,19 @@ const app = Vue.createApp({
 
   methods: {
     createLoanType() {
+      // Convierte el campo "payments" a un array
+      this.newLoanType.payments = this.newLoanType.payments.split(',').map(payment => parseInt(payment.trim()));
+  
       axios
-        .post('/api/admin/loan', this.newLoanType)
+        .post('/api/admin/loan', this.newLoanType, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         .then(response => {
-          // Handle success, e.g., show a success message to the user
           console.log('Loan type created successfully:', response.data);
-          this.successMessage = 'Loan type created successfully'; // Asigna el mensaje de éxito
-          this.errorMessage = ''; // Limpia el mensaje de error
-
-          // Clear the form fields
+          this.successMessage = 'Loan type created successfully';
+          this.errorMessage = '';
           this.newLoanType = {
             name: '',
             maxAccount: 0,
@@ -31,13 +35,12 @@ const app = Vue.createApp({
           };
         })
         .catch(error => {
-          // Handle error, e.g., show an error message to the user
           console.error('Error creating loan type:', error);
-          this.errorMessage = 'Error creating loan type'; // Asigna el mensaje de error
-          this.successMessage = ''; // Limpia el mensaje de éxito
+          this.errorMessage = 'Error creating loan type';
+          this.successMessage = ''; 
         });
     },
-  },
+  },  
 });
 
 app.mount('#app');

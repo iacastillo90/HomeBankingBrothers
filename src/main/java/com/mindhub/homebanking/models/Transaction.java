@@ -29,7 +29,6 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.balance = balance;
     }
 
     public Long getId() {

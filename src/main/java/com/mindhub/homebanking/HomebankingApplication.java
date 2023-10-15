@@ -28,7 +28,7 @@ public class HomebankingApplication {
         return (args) -> {
             Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("123456"));
             Client client2 = new Client("Tony", "Stark", "stark@mindhub.com", passwordEncoder.encode("123456"));
-            Client admin = new Client("admin", "admin", "admin@mindhub.com", passwordEncoder.encode("1234"));
+            Client admin = new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("1234"));
 
             clientRepository.save(client1);
             clientRepository.save(client2);
@@ -47,9 +47,9 @@ public class HomebankingApplication {
             accountRepository.save(account1);
             accountRepository.save(account2);
 
-            Loan mortgage = new Loan(LoanType.MORTGAGE, 500000.0, Arrays.asList(12, 24, 36, 48, 60),20.50);
-            Loan personal = new Loan(LoanType.PERSONAL, 100000.0, Arrays.asList(6, 12, 24),20.50);
-            Loan automotive= new Loan(LoanType.AUTOMOTIVE, 300000.0, Arrays.asList(6, 12, 24, 36),20.50);
+            Loan mortgage = new Loan(LoanType.MORTGAGE, 500000.0, Arrays.asList(12, 24, 36, 48, 60),20.00);
+            Loan personal = new Loan(LoanType.PERSONAL, 100000.0, Arrays.asList(6, 12, 24),15.00);
+            Loan automotive= new Loan(LoanType.AUTOMOTIVE, 300000.0, Arrays.asList(6, 12, 24, 36),25.00);
 
             loanRepository.save(mortgage);
             loanRepository.save(personal);
@@ -135,8 +135,6 @@ public class HomebankingApplication {
             cardRepository.save(card3);
 
 
-
         };
     }
-
 }

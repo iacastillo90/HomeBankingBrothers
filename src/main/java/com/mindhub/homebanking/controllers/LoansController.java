@@ -131,25 +131,28 @@ public class LoansController {
 
         // Calcular el interés del préstamo
         Double loanInterest = loanApplicationDTO.getAmount() * (1 + loanApplicationDTO.getInterest());
+        loan.setInterest(loanInterest);
 
         // Crear solicitud de préstamo
-        ClientLoan clientLoan = new ClientLoan(loanInterest, loanApplicationDTO.getPayments().get(0), client, loan);
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount(), loanApplicationDTO.getPayments().get(0), client, loan);
         clientLoanService.saveClientLoan(clientLoan);
 
         // Crear transacción
         Transaction transactionLoanCredit = new Transaction(
                 TransactionType.CREDIT,
-                loanInterest,
+                loanApplicationDTO.getAmount(),
                 loan.getName() + " loan approved",
                 LocalDateTime.now()
         );
-        transactionLoanCredit.setAccount(destinationAccount);
-        transactionService.saveTransaction(transactionLoanCredit);
 
         // Actualizar el balance de la cuenta de destino
-        double newBalance = destinationAccount.getBalance() + loanInterest;
+        double newBalance = destinationAccount.getBalance() + loanApplicationDTO.getAmount();
         destinationAccount.setBalance(newBalance);
+        destinationAccount.addTransaction(transactionLoanCredit);
         accountService.saveAccount(destinationAccount);
+
+        transactionLoanCredit.setBalance(newBalance);
+        transactionService.saveTransaction(transactionLoanCredit);
 
         mensaje= "Loan request approved.";
         return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
@@ -159,17 +162,17 @@ public class LoansController {
         public ResponseEntity<?> createLoan(Authentication authentication, @RequestBody LoanDTO loanDTO) {
             try {
                 Client client = clientService.findByEmail(authentication.getName());
-                if (!client.getEmail().equals("admin@mindhub.com")) {
-                    return new ResponseEntity<>("No está autorizado", HttpStatus.FORBIDDEN);
+                if (!client.getEmail().contains("@admin.com")) {
+                    return new ResponseEntity<>("Not authorized.", HttpStatus.FORBIDDEN);
                 }
                 if (loanDTO.getInterest() == 0 || loanDTO.getMaxAccount() == 0 || loanDTO.getName() == null || loanDTO.getPayments().isEmpty()) {
-                    return new ResponseEntity<>("Espacios vacíos", HttpStatus.FORBIDDEN);
+                    return new ResponseEntity<>("Empty spaces.", HttpStatus.FORBIDDEN);
                 }
 
                 loanService.saveLoan(new Loan(loanDTO.getName(), loanDTO.getMaxAccount(), loanDTO.getPayments(), loanDTO.getInterest()));
-                return new ResponseEntity<>("Nuevo préstamo adherido", HttpStatus.CREATED);
+                return new ResponseEntity<>("New loan attached.", HttpStatus.CREATED);
             } catch (Exception e) {
-                return new ResponseEntity<>("Error en la solicitud", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Request error.", HttpStatus.BAD_REQUEST);
             }
         }
 };

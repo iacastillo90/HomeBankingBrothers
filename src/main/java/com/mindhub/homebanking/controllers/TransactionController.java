@@ -114,22 +114,29 @@ public class TransactionController {
                                                             @RequestParam String numberAccount,
                                                             Authentication authentication) throws DocumentException, Exception {
         Client current = clientService.findByEmail(authentication.getName());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        String mensaje = " ";
 
         if (!accountService.existsByNumber(numberAccount)){
-            return new ResponseEntity<>("this account dont exist", HttpStatus.BAD_REQUEST);
+            mensaje = "this account dont exist";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
         if (current == null){
-            return new ResponseEntity<>("you are not allowed to see this", HttpStatus.FORBIDDEN);
+            mensaje="you are not allowed to see this";
+            return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
         }
         if (dateInit == null){
-            return new ResponseEntity<>("Please, fill the date requeriment", HttpStatus.BAD_REQUEST);
+            mensaje="Please, fill the date requeriment";
+            return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }else if (dateEnd == null){
-            new ResponseEntity<>("Please, fill the date end requeriment", HttpStatus.BAD_REQUEST);
+            mensaje="Please, fill the date requeriment";
+            new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
         }
         if (dateInit.equals(dateEnd)){
-            return new ResponseEntity<>("you cannot do this", HttpStatus.BAD_REQUEST);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            LocalDate currentDate = currentDateTime.toLocalDate();
+            dateEnd = currentDate.atTime(23, 59, 59).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         }
+
 
         String dateInitWithoutTime = dateInit.substring(0, 10); //  "yyyy-MM-dd"
         String dateEndWithoutTime = dateEnd.substring(0, 10); //  "yyyy-MM-dd"
@@ -140,7 +147,7 @@ public class TransactionController {
 
         List<Transaction> transactionsHistory = transactionService.findByDateBetweenAndAccountNumber(localDateInit.atStartOfDay(), localDateEnd.atTime(23, 59, 59), numberAccount);
 
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         Document doc = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(doc, out);

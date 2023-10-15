@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Banking | Manager</title>
+    <link rel="shortcut icon" href="../images/2acd7a1377fa463e974c02cf00d52e75.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
-    
 
 </head>
 <body class="bg-black">
@@ -14,31 +13,30 @@
 
     </header>
     <main id="app"> 
-        
-  
 
         <div class="row col-6 m-2 p-3 bg-secondary rounded">
-          <h2>Create New Loan Type</h2>
-          <form id="loanForm">
-              <div class="mb-3">
-                  <label for="loanName" class="form-label">Loan Type Name</label>
-                  <input type="text" class="form-control" id="loanName" placeholder="e.g., PERSONAL">
-              </div>
-              <div class="mb-3">
-                  <label for="maxAccount" class="form-label">Maximum Account</label>
-                  <input type="number" class="form-control" id="maxAccount" placeholder="e.g., 200000">
-              </div>
-              <div class="mb-3">
-                  <label for="payments" class="form-label">Available Payments (comma-separated)</label>
-                  <input type="text" class="form-control" id="payments" placeholder="e.g., 6, 12">
-              </div>
-              <div class="mb-3">
-                  <label for="interest" class="form-label">Interest Rate</label>
-                  <input type="number" step="0.01" class="form-control" id="interest" placeholder="e.g., 0.10">
-              </div>
-              <button type="submit" class="btn btn-primary">Create Loan Type</button>
-          </form>
-      </div>
+            <h2>Create New Loan Type</h2>
+            <form id="loanForm" @submit.prevent="createLoanType">
+                <div class="mb-3">
+                    <label for="loanName" class="form-label">Loan Type Name</label>
+                    <input v-model="newLoanType.name" type="text" class="form-control" id="loanName" placeholder="e.g., PERSONAL">
+                </div>
+                <div class="mb-3">
+                    <label for="maxAccount" class="form-label">Maximum Account</label>
+                    <input v-model="newLoanType.maxAccount" type="number" class="form-control" id="maxAccount" placeholder="e.g., 200000">
+                </div>
+                <div class="mb-3">
+                    <label for="payments" class="form-label">Available Payments (comma-separated)</label>
+                    <input v-model="newLoanType.payments" type="text" class="form-control" id="payments" placeholder="e.g., 6, 12">
+                </div>
+                <div class="mb-3">
+                    <label for="interest" class="form-label">Interest Rate</label>
+                    <input v-model="newLoanType.interest" type="number" step="0.01" class="form-control" id="interest" placeholder="e.g., 0.10">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Loan Type</button>
+            </form>
+            
+          </div>          
       <div v-if="successMessage" class="alert alert-success">{{ successMessage }}</div>
       <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
          

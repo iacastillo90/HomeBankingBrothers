@@ -21,26 +21,24 @@ public class WebAuthorization{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/rest/**").hasAuthority("ADMIN")
-                .antMatchers("/manager.html").hasAuthority("ADMIN")
-                .antMatchers("/h2-console/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST,"/api/admin/loan").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST,"/api/payments","/api/payments ").hasAuthority("CLIENT")
-
-
-
-
-                .antMatchers("/accounts.html","/account.html","/loans.html","/cards.html","/api/clients/current/accounts","/api/loans", "/api/cards/expiration","/api/transactions/findDate").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.PATCH, "/api/clients/current/accounts/delete/{id}").hasAuthority("CLIENT")
-
-
                 .antMatchers("/web/**","/script/**","/assets/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/clients/current","/api/clients/current/cards","/api/clients/current/accounts","/api/transactions","/api/loans").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/logout").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
-                .antMatchers("/Index.html","/script/index.js","/images/**").permitAll();
+                .antMatchers("/Index.html","/script/index.js","/images/**").permitAll()
 
+                .antMatchers("/api/clients/current","/api/clients/current/accounts","/api/transactions/findDate","/api/accounts/{id}","/api/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/current/accounts/delete/{id}").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/clients/current","/api/clients/current/cards","/api/clients/current/accounts",
+                        "/api/transactions","/api/loans","/api/payments").hasAuthority("CLIENT")
+
+                .antMatchers("/rest/**").hasAuthority("ADMIN")
+                .antMatchers("/manager.html").hasAuthority("ADMIN")
+                .antMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers("/api/clients","/api/clients/{id}",
+                        "/api/accounts","/api/clients/current/accounts/true",
+                        "/api/cards","/api/cards/{id}","/api/clients/current/cards/true").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/admin/loan").hasAuthority("ADMIN");
 
         http.formLogin()
                 .usernameParameter("email")
@@ -78,13 +76,9 @@ public class WebAuthorization{
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {
-
         HttpSession session = request.getSession(false);
-
         if (session != null) {
-
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     }
-
 }

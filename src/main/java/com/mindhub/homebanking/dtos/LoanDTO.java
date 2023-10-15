@@ -13,7 +13,6 @@ public class LoanDTO {
     private Double maxAccount;
     private LoanType name;
     private List<Integer> payments;
-    private List<ClientDTO> clients;
     private double interest;
 
     public LoanDTO() {
@@ -25,8 +24,7 @@ public class LoanDTO {
         this.maxAccount = loan.getMaxAccount();
         this.payments = loan.getPayments();
         this.interest = loan.getInterest();
-        this.clients = loan.getClientLoans().stream().map(clientLoan -> new ClientDTO(clientLoan.getClient()))
-                .collect(Collectors.toList());
+
     }
 
     public Long getId() {
@@ -59,14 +57,6 @@ public class LoanDTO {
 
     public void setPayments(List<Integer> payments) {
         this.payments = payments;
-    }
-
-    public List<ClientDTO> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<ClientDTO> clients) {
-        this.clients = clients;
     }
 
     public double getInterest() {

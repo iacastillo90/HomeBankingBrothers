@@ -53,8 +53,20 @@ public class ClientController {
             @RequestParam String password) {
 
         String mensaje = " ";
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            mensaje = "Missing data";
+        if (firstName.isBlank())  {
+            mensaje = "Missing first name";
+            return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
+        }
+        if (lastName.isBlank()) {
+            mensaje = "Missing last name";
+            return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
+        }
+        if ( email.isBlank() ){
+            mensaje = "Missing email";
+            return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
+        }
+        if (password.isBlank()){
+            mensaje = "Missing password";
             return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
         }
 
@@ -63,16 +75,22 @@ public class ClientController {
             return new ResponseEntity<>(mensaje, HttpStatus.FORBIDDEN);
         }
 
-        Client client= new Client(firstName,lastName,email,passwordEncoder.encode(password));
+        // Crear el cliente
+        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientService.saveClient(client);
-        String accountNumber = "VIN" + getStringRandomClient();
-        Account newAccount = new Account(accountNumber, LocalDate.now(), 0.00, TypeAccounts.SAVINGS);
-        client.addAccount(newAccount);
-        accountService.saveAccount(newAccount);
 
-        mensaje = "Cliente Creado";
-        return new ResponseEntity<>(mensaje,HttpStatus.CREATED);
+        // Verificar si el cliente no es administrador
+        if (!email.contains("@admin.com")) {
+            String accountNumber = "VIN" + getStringRandomClient();
+            Account newAccount = new Account(accountNumber, LocalDate.now(), 0.00, TypeAccounts.SAVINGS);
+            client.addAccount(newAccount);
+            accountService.saveAccount(newAccount);
+        }
+
+        mensaje = "Created Client";
+        return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
     }
+
 
     int min =00000000;
     int max =99999999;
