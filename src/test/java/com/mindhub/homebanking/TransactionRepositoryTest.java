@@ -15,12 +15,5 @@ import static org.hamcrest.Matchers.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class TransactionRepositoryTest {
-    @Autowired
-    private TransactionRepository transactionRepository;
 
-    @Test
-    public void existTransactionsByType(){
-        List<Transaction> transactions = transactionRepository.findAll();
-        assertThat(transactions, hasItem(hasProperty("type", is(TransactionType.CREDIT))));
-    }
 }

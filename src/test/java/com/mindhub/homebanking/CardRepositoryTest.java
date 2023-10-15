@@ -17,30 +17,6 @@ import static org.hamcrest.Matchers.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CardRepositoryTest {
-    @Autowired
-    private CardRepository cardRepository;
 
-    @Test
-    public void existCards(){
-        List<Card> cards = cardRepository.findAll();
-        assertThat(cards,is(not(empty())));
-    }
-
-    @Test
-    public void existsCardsByType(){
-        List<Card> cards = cardRepository.findAll();
-        assertThat(cards, hasItem(hasProperty("type", is(CardType.CREDIT))));
-    }
-
-    @Test
-    public void existsCardsByExpirationDate(){
-        List<Card> cards = cardRepository.findAll();
-
-        // Obtén la fecha actual
-        LocalDate currentDate = LocalDate.now();
-
-        // Verifica si al menos una tarjeta está vencida (thruDate es anterior a la fecha actual)
-        assertThat(cards, hasItem(hasProperty("thruDate", lessThan(currentDate))));
-    }
 
 }

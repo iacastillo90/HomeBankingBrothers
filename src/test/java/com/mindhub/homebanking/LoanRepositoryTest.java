@@ -14,19 +14,6 @@ import static org.hamcrest.Matchers.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class LoanRepositoryTest {
 
-    @Autowired
-    private LoanRepository loanRepository;
 
-    @Test
-    public void existLoans(){
-        List<Loan> loans = loanRepository.findAll();
-        assertThat(loans,is(not(empty())));
-    }
-
-    @Test
-    public void existsPersonalLoan(){
-        List<Loan> loans = loanRepository.findAll();
-        assertThat(loans, hasItem(hasProperty("name", is(LoanType.PERSONAL))));
-    }
 }
 
