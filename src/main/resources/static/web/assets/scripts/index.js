@@ -61,7 +61,7 @@ const app = Vue.createApp({
                         title: 'Registration Successful',
                         text: 'Your account has been created successfully.',
                     }).then(() => {
-                        window.location = "/web/Index.html";
+                        window.location = "/web/index.html";
                     });
                 })
                 .catch(error => {

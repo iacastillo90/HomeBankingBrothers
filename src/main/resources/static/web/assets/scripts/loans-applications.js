@@ -144,7 +144,7 @@ const app = createApp({
                         title: 'Logout Successful',
                         text: 'Your session has been successfully closed.',
                     }).then(() => {
-                        window.location.href = '/web/Index.html';
+                        window.location.href = '/web/index.html';
                     });
                 })
                 .catch(error => {
