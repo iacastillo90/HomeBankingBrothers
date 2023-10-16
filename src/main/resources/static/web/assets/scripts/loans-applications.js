@@ -20,7 +20,7 @@ const app = createApp({
   methods: {
     loadData() {
         axios
-            .get ("http://localhost:8080/api/clients/current")
+            .get ("/api/clients/current")
             .then((response) => {
                 const accountsData = response.data.accounts;
                 this.accounts = accountsData.filter(account => account.isActive);
@@ -30,7 +30,7 @@ const app = createApp({
     },
     loadDataLoans() {
       axios
-        .get("http://localhost:8080/api/loans")
+        .get("/api/loans")
         .then((response) => {
           this.loans = response.data;
           console.log("Préstamos recuperados con éxito:", this.loans);
@@ -137,7 +137,7 @@ const app = createApp({
         cancelButtonText: 'No, cancel'
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.post(`http://localhost:8080/api/logout`)
+            axios.post(`/api/logout`)
                 .then(response => {       
                     Swal.fire({
                         icon: 'success',

@@ -50,7 +50,7 @@ const app = Vue.createApp({
                     password: this.password,
                 };
                 axios.post(
-                    `http://localhost:8080/api/clients`,
+                    `/api/clients`,
                     `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`,
                     { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                 )
@@ -75,7 +75,7 @@ const app = Vue.createApp({
             }
         },        
         singUp() {
-            axios.post(`http://localhost:8080/api/clients`, `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+            axios.post(`/api/clients`, `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
                     console.log(response);
                     // Show a success alert using SweetAlert

@@ -74,7 +74,7 @@ createApp({
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post(`http://localhost:8080/api/logout`)
+                    axios.post(`/api/logout`)
                         .then(response => {       
                             Swal.fire({
                                 icon: 'success',

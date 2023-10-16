@@ -19,7 +19,7 @@ const app = Vue.createApp({
       return amount.toFixed(2); // Por ejemplo, formateado a dos decimales.
     },
     loadData() {
-      axios.get('http://localhost:8080/api/clients/current')
+      axios.get('/api/clients/current')
         .then(response => {
           const clients = response.data;
           console.log(clients);
@@ -100,7 +100,7 @@ const app = Vue.createApp({
           cancelButtonText: 'No, cancel'
       }).then((result) => {
           if (result.isConfirmed) {
-              axios.post(`http://localhost:8080/api/logout`)
+              axios.post(`/api/logout`)
                   .then(response => {       
                       Swal.fire({
                           icon: 'success',

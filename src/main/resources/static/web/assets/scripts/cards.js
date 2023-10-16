@@ -40,7 +40,7 @@ const app = Vue.createApp({
             }
         },
         loadData() {
-            axios.get('http://localhost:8080/api/clients/current')
+            axios.get('/api/clients/current')
                 .then(response => {
                     const client = response.data;
                     if (client && client.cards) {
@@ -136,7 +136,7 @@ const app = Vue.createApp({
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post(`http://localhost:8080/api/logout`)
+                    axios.post(`/api/logout`)
                         .then(response => {
                             Swal.fire({
                                 icon: 'success',

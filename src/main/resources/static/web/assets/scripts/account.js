@@ -19,7 +19,7 @@ const app = Vue.createApp({
     },
     methods: {
         loadTransactionsAndLoans() {
-            axios.get(`http://localhost:8080/api/accounts/${this.accountId}`)
+            axios.get(`/api/accounts/${this.accountId}`)
                 .then(response => {
                     // Obtén datos de transacciones y préstamos desde la respuesta
                     const transactions = response.data.transactions || [];
@@ -69,7 +69,7 @@ const app = Vue.createApp({
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.post(`http://localhost:8080/api/logout`)
+                    axios.post(`/api/logout`)
                         .then(response => {       
                             Swal.fire({
                                 icon: 'success',
@@ -91,7 +91,7 @@ const app = Vue.createApp({
                 dateEnd: this.dateEnd,
                 numberAccount: this.numberAccount,
             });
-            const url = `http://localhost:8080/api/transactions/findDate?${queryParams.toString()}`;
+            const url = `/api/transactions/findDate?${queryParams.toString()}`;
             axios.get(url, {
                 responseType: "blob"
             })
