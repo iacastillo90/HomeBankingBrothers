@@ -639,3 +639,10 @@ nav,
   --transition__easing: ease-in-out;
   animation-name: circle-swoop;
 }
+
+@media (max-width: 430px) {
+  .row{
+    display: flex;
+    justify-content: center;
+  }
+}

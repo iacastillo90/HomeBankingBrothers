@@ -10,6 +10,25 @@
     <link rel="stylesheet" href="../Style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+<style>
+    nav,
+    .offcanvas {
+      background-color: #1e293b;
+    }
+    .navbar-toggler {
+      border: none;
+    }
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-nav > li:hover {
+        background-color: #0dcaf0;
+      }
+    }
+  </style>
 <body>
     <header>
         <div id="topbar" class="">
@@ -29,7 +48,8 @@
             </div>
         </div>
             <!-- MENU START  -->
-        <nav class="navbar navbar-expand-md navbar-dark" data-aos="fade-right">
+        
+          <nav class="navbar navbar-expand-lg navbar-dark">
             <!-- NAV CONTAINER START -->
             <div class="container-fluid">
                 
@@ -37,7 +57,6 @@
                     <img src="../images/logo.png" alt="Logo" width="30" height="30" >
                     Home Banking Brothers
                 </a>
-    
             <!-- NAV BUTTON  -->
             <button
                 class="navbar-toggler"
@@ -67,24 +86,24 @@
                 class="offcanvas-body d-flex flex-column justify-content-between px-0"
                 >
                 <ul class="navbar-nav fs-5 justify-content-evenly">
-                    <li class="nav-item p-3 py-md-1">
-                        <a class="nav-link" href="./cards.html">Cards</a>
-                    </li>
-                    <li class="nav-item p-3 py-md-1">
-                        <a class="nav-link" href="./accounts.html">Accounts</a>
-                    </li>
-                    <li class="nav-item p-3 py-md-1">
-                        <a class="nav-link" href="./transaction.html">Transaction</a>
-                    </li>
-                    <li class="nav-item p-3 py-md-1">
-                        <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
-                    </li>
-                </ul>
+                  <li class="nav-item p-3 py-md-1">
+                      <a class="nav-link" href="./cards.html">Cards</a>
+                  </li>
+                  <li class="nav-item p-3 py-md-1">
+                      <a class="nav-link" href="./accounts.html">Accounts</a>
+                  </li>
+                  <li class="nav-item p-3 py-md-1">
+                      <a class="nav-link" href="./transaction.html">Transaction</a>
+                  </li>
+                  <li class="nav-item p-3 py-md-1">
+                      <a class="nav-link" @click="logout()" href="/web/Index.html">Log out</a>
+                  </li>
+              </ul>
                 </div>
             </section>
             <!-- OFFCANVAS MAIN CONTAINER END  -->
             </div>
-        </nav>
+          </nav>
         <section id="carousel" class="carousel slide " data-bs-ride="carousel">
             <h2 class="position-absolute top-50 start-50 translate-middle z-3 fw-bold fs-1"></h2>
             <div class="carousel-inner">
